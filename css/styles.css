@@ -1,3 +1,33 @@
-#hello {
-    color: red;
+#logo-navbar {
+    max-width: 100px;
+}
+
+#pipe {
+    color: white;
+    margin-top: 5px;
+}
+
+.search-navbar {
+    margin-left: -100px;
+}
+
+#col-left {
+    height: 800px;
+    background-color: lightblue;
+    position: sticky;
+    z-index: 0;
+}
+
+#col-center {
+    height: 2000px;
+    background-color: lightcoral;
+    float: right;
+    z-index: 0;
+}
+
+#col-right {
+    height: 800px;
+    background-color: lightgreen;
+    position: sticky;
+    z-index: 0;
 }
