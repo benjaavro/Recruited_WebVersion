@@ -26,10 +26,19 @@
                     <h2 id="register">REGISTER NOW!</h2>
                     
                     <!--- STUDENT - ATHLETE SIGN UP FORM --->
-                    <div class="row">
+                    <div class="row" id="student-signup">
                         <div class="col-2"></div>
                         <div class="col-8">
                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <select class="custom-select my-1 mr-sm-2 bg-dark role" id="inlineFormCustomSelectPref">
+                                    <option selected>Student-Athlete / Coach</option>
+                                    <option value="1">Student-Athlete</option>
+                                    <option value="2">Coach</option>
+                                </select>
+                                <small id="phoneHelp" class="form-text text-muted">Select an option from dropdown menu.</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="name">Full Name</label>
                                 <input type="text" class="form-control bg-dark" id="name">
                             </div>
@@ -74,7 +83,7 @@
                             <div class="row" style="margin-top: 20px; margin-bottom: 80px;">
                                 <div class="col-2"></div>
                                 <div class="col-8">
-                                    <a href="#">
+                                    <a href="login.html">
                                         <button class="btn bg-light" type="submit" id="signup-button">Sign Up</button>
                                     </a>
                                 </div>

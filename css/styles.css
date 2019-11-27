@@ -1,3 +1,7 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
 #logo-navbar {
     max-width: 100px;
 }
@@ -13,9 +17,11 @@
 
 #col-left {
     height: 800px;
-    background-color: lightblue;
+    background-color: white;
     position: sticky;
     z-index: 0;
+    padding-top: 100px;
+    padding-left: 30px;
 }
 
 #col-center {
@@ -27,7 +33,24 @@
 
 #col-right {
     height: 800px;
-    background-color: lightgreen;
+    background-color: white;
     position: sticky;
     z-index: 0;
+}
+
+.menu-item {
+    color: black;
+}
+
+.menu-item:hover {
+    color: darkgray;
+    text-decoration: none;
+    text-decoration: underline;
+}
+
+.menu-title {
+    color: darkgray;
+    font-weight: 700;
+    font-style: italic;
+    margin-left: 0px;
 }

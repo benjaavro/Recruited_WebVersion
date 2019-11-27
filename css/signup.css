@@ -20,7 +20,7 @@ label {
     width: 100%;
 }
 
-#email, #password, #phone, #location, #team {
+#email, #password, #phone, #location, #team, #name {
     color: white;
 }
 
@@ -32,4 +32,8 @@ label {
     margin-bottom: 30px;
     font-weight: 700;
     font-style: italic;
+}
+
+.role {
+    color: white;
 }
