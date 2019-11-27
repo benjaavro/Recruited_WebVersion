@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+    </head>
+
+    <body class="bg-app">
+        <div class="container">
+            <h3 class="text-center">Recepciones</h3>
+            <br>
+            <div id="feedback"></div>
+
+            <!--Standard buttons-->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <a class="btn btn-primary text" href="inventory-main.html">Atrás</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <a href="inventory-reception-management.html" class="btn btn-secondary">Limpiar</a>
+                    </div>                
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <button class="btn btn-primary" id="saveBtn">Guardar</button>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+
+            <!--Content-->
+
+            <!-- #Header -->
+            <div class="container">
+                <h4>Datos del encabezado</h4>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="ranch">Rancho emisor</label>
+                            <select class="form-control" id="ranch" onchange="createCostCenterSelector($(this).val(),'costCenterCode')"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!--General data-->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="costCenterCode">Centro de costos receptor</label>
+                            <select class="form-control" id="costCenterCode"></select>
+                            <span id="costCenterCodeFeedback"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="vendorRfc">RFC del Proveedor</label>
+                            <input class="form-control" id="vendorRfc" type="text">
+                            <span id="vendorRfcFeedback"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>N.o de factura</label>
+                            <input class="form-control" id="documentId" type="text">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="vendorRfc">Fecha del documento</label>
+                            <input class="form-control" id="documentDate" type="date">
+                        </div>
+                    </div>
+                </div>
+
+                <!--Transaction type-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tipo de transacción</label>
+                            <select id="transactionType" onchange="togglePurchaseOrderField($(this).val());" class="form-control">
+                                <option disabled selected>Selecione un tipo de transacción</option>
+                                <option value=9>Recepción con orden de compra y con factura</option>
+                                <option value=10>Recepción con orden de compra y sin factura</option>
+                                <option value=11>Recepción sin orden de compra y con factura</option>
+                                <option value=12>Recepción sin orden de compra y sin factura</option>
+                            </select>
+                            <span id="transactionTypeFeedback"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group d-none" id="fld-po">
+                            <label>N.o de orden de compra</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-primary" type="button" id="getTransact">Buscar</button>
+                                </div>
+                                <input type="text" id="exitNumber" class="form-control">
+                            </div>
+                            <span id="exitNumberFeedback"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Accounting data-->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>UUID</label>
+                            <input type="text" class="form-control" id="uuidCFDI">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Subtotal</label>
+                            <input type="text" class="form-control" id="subTotal">
+                            <span id="subTotalFeedback"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>IVA</label>
+                            <input type="text" class="form-control" id="vat">
+                            <span id="vatFeedback"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Total</label>
+                            <input type="text" class="form-control" id="invoiceTotal">
+                            <span id="invoiceTotalFeedback"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Detalles</label>
+                            <textarea id="transactionDesc" class="form-control"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+                <!--Buttons-->
+                <div class="row">
+                    <div class="col-md-4">
+                        <button class="btn btn-info" id="finishHeaderCapture">Capturar resto de la factura</button>
+                    </div>
+                </div>
+            </div>
+            <!-- #end header -->
+
+            <!-- #Detail -->
+            <div class="container d-none" id="invoiceBody">
+                <h4>Detalle de la factura</h4>
+                <div class="row">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>Nombre del producto</th>
+                            <th>Código de barras</th>
+                            <th>N.o de lote</th>
+                            <th>Fecha de caducidad</th>
+                            <th>Cantidad recibida</th>
+                            <th>Subtotal</th>
+                            <th>IVA</th>
+                        </thead>
+                        <tbody id="detailInvoice">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- #end Detail -->
+        </div>
+
+        <script>
+            //External libraries
+            window.$ = window.jQuery = require('jquery')
+            require('bootstrap')  
+            require('./js/vendor/jquery.auto-complete.min.js')
+
+            //Local libraries
+            const ItemController = require('./js/controller/InventoryController.js')            
+            const RanchAndSectionController = require('./js/controller/AdministrativeUnitController.js')
+            const VendorController    = require('./js/controller/VendorController.js')
+
+            const ReceptionManager = require('./js/viewcontrol/InventoryReceptionManagementViewControl.js')
+
+            const TableRows = require('./js/util/TableRows.js')
+
+            const tableRows = new TableRows({
+                cellNumber: 7,
+                idSet: ['productName','itemCode','lotNumber','expirationDate','unitsInTransaction','subtotal','vat'],
+                appendTo: 'detailInvoice'
+            });
+
+            var data = {};
+            var tags = [];
+            var vendors = [];
+
+            var nrs;
+
+            function createAutoSugest(elementId,dataSource,pos){
+                $("#valueInTransaction"+pos).addClass('tab-listener');
+
+                $(elementId).autoComplete({
+                    minChars:2,
+                    //Term is the word introduced by the user
+                    //Suggest is an internal function on autocomplete
+                    source: function(term,suggest){
+                        term = term.toLowerCase();
+                        var matches = [];
+
+                        for (let i = 0; i < dataSource.length; i++) {
+                            if(~dataSource[i].toLowerCase().indexOf(term))
+                                matches.push(dataSource[i]);
+                        }
+                        suggest(matches);
+                    }, onSelect: function(e,term,item){
+                        $("#itemCode"+pos).val(data[term].itemId);
+                    }
+                });
+            }
+
+            function appendTableRow(id) {
+                if(!this.cur)
+                    this.cur = 2;
+                tableRows.appendRow(this.cur);
+                createAutoSugest(id+this.cur,tags,this.cur);
+                this.cur++;
+                nrs = this.cur;
+            }
+
+            function createCostCenterSelector(ranchId,sid){
+                $("#"+sid).html("");
+                                
+                const ranchController = new RanchAndSectionController();
+               
+                ranchController.getCostCenters(ranchId).then(
+                    success => {
+                        console.log(success);
+
+                        $("#"+sid).append("<option selected disabled>Seleccione una sección</option>");
+                        success.forEach(element => {
+                            $("#"+sid).append(
+                                '<option value="'+element.costCenterId+'">'+element.costCenterName+"</option>"
+                            )
+                        });
+                    },err=>{
+                        alert("Error al cargar secciones");
+                        console.log(err);
+                    }
+                )
+            }
+
+            function createRanchSelector(){
+                const ranchController = new RanchAndSectionController();
+
+                ranchController.getRanches().then(
+                    success=>{
+                        console.log(success);
+                        
+                        $("#ranch").append("<option selected disabled>Seleccione un rancho</option>");
+                        $("#ranchRec").append("<option selected disabled>Seleccione un rancho</option>");
+                        success.forEach(element => {
+                            $("#ranch").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                            $("#ranchRec").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                        });
+                    }
+                )
+            }
+            
+            function vendorSelects(id,dataSource){
+                $(id).autoComplete({
+                    minChars: 3,
+                    source: function (term,suggest) {
+                        term = term.toLowerCase();
+                        var matches = [];
+
+                        for (let i = 0; i < dataSource.length; i++) {
+                            console.log(dataSource[i]);
+                            if(~dataSource[i].toLowerCase().indexOf(term)) 
+                                matches.push(dataSource[i]);
+                        }
+                        suggest(matches);
+                    },onSelect: function (e,term,item) {
+                        $("#vendorName").val(vendors[term].vendorName);
+                    }
+                })
+            }
+        
+            function togglePurchaseOrderField(val){
+                (val == 9 || val == 10)? $("#fld-po").removeClass('d-none') : $("#fld-po").addClass('d-none');
+            }
+
+            function appendTableRow(id) {
+                if(!this.cur)
+                    this.cur = 2;
+
+                tableRows.appendRow(this.cur);
+                createAutoSugest(id+this.cur,tags,this.cur);
+                this.cur++;
+                nrs = this.cur;
+                console.log(nrs);
+            }
+
+            $(document).ready(function(){
+                const inventoryController = new ItemController();
+                const vendorController = new VendorController();
+
+                createRanchSelector();
+                
+                inventoryController.getItems().then(
+                    success=>{
+                        success.forEach(element => {
+                            data[element.itemName] = element;
+                            tags.push(element.itemName);
+                            createAutoSugest("#productName1",tags,1);
+                        });
+                    },err=>{
+                        console.log(err);
+                    }
+                )
+
+                vendorController.getVendors().then(
+                    success=>{
+                        var arr = [];
+                        if(success){
+                            success.forEach(element => {
+                                vendors[element.rfc] = element;
+                                arr.push(element.rfc);
+                            });
+
+                            vendorSelects("#vendorRfc",arr);
+                        }
+                    },err=>{
+                        console.log(err);
+                        alert("Hubo un error al cambiar los proveedores en la app");
+                    }
+                )
+
+                //🤔 
+                $("#finishHeaderCapture").click(()=>{
+                    if(ReceptionManager.getReceptionHeader()){
+                        $("#invoiceBody").removeClass('d-none');
+
+                        //Create 1st row
+                        tableRows.appendRow(1);
+                        createAutoSugest("#productName1",tags,1);
+                        nrs = 2;
+                        console.log(nrs);
+                    }else{
+                        alert("Revise los datos introducidos!");
+                    }
+                })
+
+                $("#saveBtn").click(()=>{
+                    console.log(nrs);
+                    ReceptionManager.saveItemReception(tableRows,nrs,['productName','itemCode','lotNumber','expirationDate','unitsInTransaction','subtotal','vat'],data);
+                })
+
+                $("#getTransact").click(()=>{
+                    ReceptionManager.getPurchaseOrder($("#exitNumber").val(),tableRows);
+                })
+
+                $(document).on('keypress','.listen-enter',function (e) {
+                    if (e.key == 'Enter') {
+                        appendTableRow("#productName");
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>

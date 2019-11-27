@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="node_modules/datatables.net-dt/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+    </head>
+    <body class="bg-app">
+        <h3 class="text-center">Consulta de inventarios</h3>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <a class="btn btn-primary text" href="inventory-main.html">Atrás</a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container-90">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Rancho</label>
+                        <select id="ranch" class="form-control" onchange="createCostCenterSelector($(this).val())"></select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Centro de costos</label>
+                        <select id="costCenterCode" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>De:</label>
+                        <input id="dateFromCC" class="form-control" type="date"></select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>A:</label>
+                        <input id="dateToCC" class="form-control" type="date"></select>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn btn-primary" id="ccSearch">Buscar</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="feedback"></div>
+                    <table id="table" class="table d-none">
+                        <thead>
+                            <tr>
+                                <th>Código de barras</th>
+                                <th>Artículo</th>
+                                <th>Entrada/salida</th>
+                                <th>Tipo de transacción</th>
+                                <th>Fecha de transacción</th>
+                                <th>Acumulado en valores</th>
+                                <th>Acumulado en unidades</th>
+                                <th>Valor promedio acumulado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="">
+
+                        </tbody>
+                    </table>
+
+                    <table id="resultState" class="table d-none">
+                        <thead></thead>
+                        <tbody id="resultStateBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            window.$ = window.jQuery = require('jquery')
+            require('bootstrap')
+
+            
+            const dates = require('./js/util/DateAndNumber.js')
+
+            const AdministrativeUnitController = require('./js/controller/AdministrativeUnitController.js')
+
+            const cardexConsult = require('./js/viewcontrol/inventory-cardexconsult.js')
+
+            function createRanchSelector(){
+                const ranchController = new AdministrativeUnitController();
+
+                ranchController.getRanches().then(
+                    success=>{
+                        console.log(success);
+                        
+                        $("#ranch").append("<option selected disabled>Seleccione un rancho</option>");
+                        success.forEach(element => {
+                            $("#ranch").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                        });
+                    }
+                )
+            }
+
+            function createCostCenterSelector(ranchId){
+                $("#costCenterCode").html("");
+                const ranchController = new AdministrativeUnitController();
+                
+                ranchController.getCostCenters(ranchId).then(
+                    success=>{
+                        console.log(success);
+
+                        $("#costCenterCode").append("<option selected disabled>Seleccione una sección</option>");
+                        success.forEach(element => {
+                            $("#costCenterCode").append(
+                                '<option value="'+element.costCenterId+'">'+element.costCenterName+"</option>"
+                            )
+                        });
+                    },err=>{
+                        alert("Error al cargar centros de costos");
+                        console.log(err);
+                    }
+                )
+            }
+
+            $(document).ready(function(){
+                createRanchSelector();
+
+                $("#ccSearch").click(function(){
+                    let costCenter = $("#costCenterCode").val();
+                    let dateFrom   = $("#dateFromCC").val();
+                    let dateTo     = $("#dateToCC").val();
+
+                    if(!costCenter || !dateTo){
+                        alert("Seleccione al menos la fecha \"de\" y el centro de costos");
+                        return;
+                    }
+                    cardexConsult.getCardexPerCostCenter(costCenter,dateFrom,dateTo);
+                })
+            })
+
+        </script>
+    </body>
+</html>

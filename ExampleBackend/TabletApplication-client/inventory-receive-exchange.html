@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+    </head>
+    <body class="bg-app">
+        <h3 class="text-center">Transferencia entre centros de costos</h3>
+        <br>
+        <div class="row">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <a class="btn btn-primary text" href="inventory-main.html">Atrás</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <a class="btn btn-secondary text" href="inventory-receive-exchange.html">Limpiar</a>
+                    </div>                
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <button class="btn btn-primary" id="saveBtn">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        <div class="container-90">
+            <h4>Datos generales</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ranch">Rancho emisor</label>
+                        <select class="form-control" id="ranch" onchange="createCostCenterSelector($(this).val(),'costCenterCode')"></select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ranchRec">Rancho receptor</label>
+                        <select class="form-control" id="ranchRec" onchange="createCostCenterSelector($(this).val(),'optionalCostCenter')"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="costCenterCode">Centro de costos emisor</label>
+                        <select class="form-control" id="costCenterCode"></select>
+                        <span id="costCenterCodeFeedback"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="optionalCostCenter">Centro de costos receptor</label>
+                        <select class="form-control" id="optionalCostCenter"></select>
+                        <span id="optionalCostCenterFeedback"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="transactionType">Tipo de transacción</label>
+                        <select class="form-control" id="transactionType">
+                            <option value="3">Recepción</option>
+                            <option value="2">Transferencia de salida</option>
+                        </select>
+                        <span id="transactionTypeFeedback"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <label>Total de elementos</label>
+                        <input type="text" id="itemTotal" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Numero de salida</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary" type="button" id="getTransact">Buscar</button>
+                        </div>
+                        <input type="text" id="exitNumber" class="form-control">
+                        <span id="exitNumberfeedback"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="entranceNumber">Numero de entrada</label>
+                        <input type="text" id="entranceNumber" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <h4 class="text-center">Detalle de transferencias</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre del producto</th>
+                                <th>Código de barras</th>
+                                <th>N.o de lote</th>
+                                <th>Cantidad en transacción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detailReception">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            window.$ = window.jQuery = require('jquery')
+            require('bootstrap')
+            require('./js/vendor/jquery.auto-complete.min.js')
+            
+            const TableRows = require('./js/util/TableRows.js')
+
+            const RanchAndSectionController = require('./js/controller/AdministrativeUnitController.js')
+
+            const InventoryReceiver = require('./js/viewcontrol/InventoryReceiveExchange.js')
+
+            var transactData = [];
+            
+            const tableRows = new TableRows({
+                cellNumber: 4,
+                idSet: ['productName','itemCode','lotNumber','unitsInTransaction'],
+                appendTo: 'detailReception'
+            })
+
+           function createRanchSelector(){
+                const ranchController = new RanchAndSectionController();
+
+                ranchController.getRanches().then(
+                    success=>{
+                        console.log(success);
+                        
+                        $("#ranch").append("<option selected disabled>Seleccione un rancho</option>");
+                        $("#ranchRec").append("<option selected disabled>Seleccione un rancho</option>");
+                        success.forEach(element => {
+                            $("#ranch").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                            $("#ranchRec").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                        });
+                    }
+                )
+            }
+            
+            function createCostCenterSelector(ranchId,sid) {
+                $("#"+sid).html("");
+                const ranchController = new RanchAndSectionController();
+                ranchController.getCostCenters(ranchId).then(
+                    success=>{
+                        console.log(success);
+
+                        $("#"+sid).append("<option selected disabled>Seleccione una sección</option>");
+                        success.forEach(element => {
+                            $("#"+sid).append(
+                                '<option value="'+element.costCenterId+'">'+element.costCenterName+"</option>"
+                            )
+                        });
+                    },err=>{
+                        alert("Error al cargar secciones");
+                        console.log(err);
+                    }
+                )
+            }
+
+            $(document).ready(function () {
+                createRanchSelector();
+
+                $("#saveBtn").click(function () {
+                   InventoryReceiver.save(tableRows,['productName','itemCode','lotNumber','unitsInTransaction']);
+                })
+
+                $("#getTransact").click(function(){
+                   InventoryReceiver.getCardexEntriesForExitNumber();
+                })
+
+                /*$(document).on('keypress','.listen-enter',function (e) {
+                    if (e.key == 'Enter') {
+                        appendTableRow("#productName");
+                    }
+                }) */
+            })
+        </script>
+    </body>
+</html>

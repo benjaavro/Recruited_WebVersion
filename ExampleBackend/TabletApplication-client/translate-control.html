@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery.auto-complete.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <title>Sistema de control ganadero</title>
+</head>
+<body class="bg-app container-fluid">
+<h3 class="text-center">Translado</h3>
+<br>
+<div class="row">
+    <div class="col-md-4">
+        <a class="btn btn-primary text" href="section-main.html">Atrás</a>
+    </div>
+</div>
+<div class="container-80">
+    <!--<div class="row">-->
+    <div class="row">
+        <div class="col-6">
+            <label>Seleccione Rancho Origen.</label>
+            <select id="ranch" class="form-control" onchange="createSectionSelector($(this).val());"></select>
+        </div>
+        <div class="col-6">
+            <label>Seleccione Rancho Destino.</label>
+            <select id="ranchDestiny" class="form-control" onchange="createSectionSelector2($(this).val());"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <label>Zona Origen.</label>
+            <select id="zoneOrigin" class="form-control" onchange="createCowDataSelector($(this).val());"></select>
+            <span id="animalSectionIdFeedback"></span>
+
+        </div>
+        <div class="col-6">
+            <label>Zona Destino.</label>
+            <select id="zoneDestiny" class="form-control"></select>
+            <span id="animalSectionIdFeedback2"></span>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <label for="earringId">No. Arete.</label>
+            <input type="text" id="earringId" class="form-control">
+            <span id="earringIdTranslate"></span>
+        </div>
+        <div class="col-6">
+            <label>Conversión a Orgánico.</label>
+            <select id="organicConvert" class="form-control">
+                <option value="NO" selected>NO</option>
+                <option value="SI">SI</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <br>
+            <a class="btn btn-primary" href="translate-control.html" id="cleanButton">Limpiar Datos</a>
+        </div>
+        <div class="col-6">
+            <br>
+            <button class="btn btn-success" id="saveTranslate">Guardar</button>
+        </div>
+    </div>
+    <!--</div>-->
+    <br>
+</div>
+
+<script>
+    window.$ = window.jQuery = require('jquery')
+    require('bootstrap')
+    require('./js/vendor/jquery.auto-complete.min.js')
+
+    
+    const dates = require('./js/util/DateAndNumber.js')
+
+    const RanchAndSectionController = require('./js/controller/AdministrativeUnitController.js')
+    const CowController = require('./js/controller/CowController.js')
+
+    const SectionVC = require('./js/viewcontrol/SectionAnimalHistoryViewControl.js')
+
+    var data = {};
+    var tags = [];
+
+    function createRanchSelector(id){
+        const ranchController = new RanchAndSectionController();
+        $("#"+id).html("");
+
+        ranchController.getRanches().then(
+            success=>{
+                console.log(success);
+
+                $("#"+id).append("<option selected disabled>Seleccione un rancho</option>");
+                success.forEach(element => {
+                    $("#"+id).append(
+                        '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                    )
+                });
+            }
+        )
+    }
+
+    //Function creates a section from the selected ranch
+    function createSectionSelector(ranchId) {
+        $("#zoneOrigin").html("");
+        const ranchController = new RanchAndSectionController();
+        ranchController.getSections(ranchId).then(
+            success=>{
+                console.log(success);
+
+                $("#zoneOrigin").append("<option selected disabled>Seleccione una sección</option>");
+                success.forEach(element => {
+                    $("#zoneOrigin").append(
+                        '<option value="'+element.sectionId+'">'+element.sectionName+"</option>"
+                    )
+
+                    createCowSelector(tags);
+                });
+            },err=>{
+                alert("Error al cargar secciones");
+                console.log(err);
+            }
+        )
+    }
+
+    function createSectionSelector2(ranchId) {
+        $("#zoneDestiny").html("");
+        const ranchController = new RanchAndSectionController();
+        ranchController.getSections(ranchId).then(
+            success=>{
+                console.log(success);
+
+                $("#zoneDestiny").append("<option selected disabled>Seleccione una sección</option>");
+                success.forEach(element => {
+                    $("#zoneDestiny").append(
+                        '<option value="'+element.sectionId+'">'+element.sectionName+"</option>"
+                    )
+                });
+            },err=>{
+                alert("Error al cargar secciones");
+                console.log(err);
+            }
+        )
+    }
+
+    function createCowSelector(dataSource){
+        $("#earringId").autoComplete({
+            minChars: 2,
+            source: function(term,suggest){
+                term = term.toLowerCase();
+                var matches = [];
+                for (let i = 0; i < dataSource.length; i++) {
+                    if(~dataSource[i].toLowerCase().indexOf(term)) 
+                        matches.push(dataSource[i]);
+                }
+                suggest(matches);
+            },onSelect: function(e,term,item){
+                $("#earringId").val(data[term].earringId);
+            }
+        })
+    }
+
+    function createCowDataSelector(idLook){
+        const cowController = new CowController();
+
+        cowController.getCowsForSection(idLook).then(
+            success=>{
+                console.log(success);
+                
+                if(success.length > 0){
+                    success.forEach(element=>{
+                        data[element.earringId] = element;
+                        tags.push(element.earringId);
+                    })
+                }else{
+                    alert("No hay animales en esta sección")
+                }
+            },err=>{
+                console.log(err);
+                alert("Hubo un error al obtener los animales en esta sección");
+            }
+        )
+    }
+
+    $(document).ready(function (e) {
+        createRanchSelector('ranch')
+        createRanchSelector('ranchDestiny')
+
+        $("#saveTranslate").click(function () {
+            console.log("Guardar los datos");
+            SectionVC.saveTranslate();
+        });
+    })
+
+</script>
+</body>
+</html>

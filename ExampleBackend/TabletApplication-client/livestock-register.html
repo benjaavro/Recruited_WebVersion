@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+        <script src="js/controller/CowController.js"></script>
+    </head>
+    <body class="bg-app">
+        <div class="container">
+            <h3 class="text-center">Registro de bovinos</h3>
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-primary" href="livestock-main.html">Atrás</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <img src="img/camera.png" alt="..." class="img-thumbnail">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-primary btn-block">Tomar Foto</button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-6">
+                            <button id="saveBtn" class="btn btn-primary btn-block">Guardar</button>
+                        </div>
+                        <div class="col-6">
+                            <a href="livestock-register.html" class="btn btn-secondary btn-block">Limpiar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="earringId">N.o de arete</label>
+                        <input type="text" id="earringId" class="form-control">
+                        <span id="earringIdFeedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="animalName">Nombre</label>
+                        <input type="text" id="animalName" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="race">Raza</label>
+                        <input type="text" id="race" class="form-control" list="_lstRaces">
+                        <datalist id="_lstRaces">
+                            <option value="Suiza">Suiza</option>
+                            <option value="Cebu">Cebú</option>
+                            <option value="Suizbú">Suizbu</option>
+                            <option value="Sin raza">Sin raza</option>
+                        </datalist>
+                        <span id="raceFeedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Género</label>
+                        <select class="form-control" id="gender">
+                            <option selected disabled>Seleccione un genero</option>
+                            <option value="Vaca">Vaca</option>
+                            <option value="Toro">Toro</option>
+                        </select>
+                        <span id="genderFeedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthplace">Lugar de nacimiento</label>
+                        <input type="text" id="birthplace" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="birthday">Fecha de nacimiento</label>
+                        <input type="date" id="birthday" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="destiny">Uso</label>
+                        <input type="text" id="destiny" class="form-control">
+                        <span id="destinyFeedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="currentStatus">Estatus</label>
+                        <select class="form-control" id="currentStatus">
+                            <option value="Saludable">Saludable</option>
+                            <option value="Enfermo">Enfermo</option>
+                            <option value="En recuperación">En recuperación</option>
+                            <option value="Recien nacido">Recién nacido</option>
+                            <option value="Preñado">Preñado</option>
+                            <option value="Post parto">Post parto</option>
+                            <option value="En engorda">En Engorda</option>
+                            <option value="Producción lechera">Producción lechera</option>
+                        </select>
+                        <span id="currentStatusFeedback"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="ranch">Rancho</label>
+                    <select class="form-control" id="ranch" onchange="createSectionSelector($(this).val())"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="animalSectionId">Sección</label>
+                        <select class="form-control" id="animalSectionId"></select>
+                        <span id="animalSectionIdFeedback"></span>
+                    </div>
+                    <div class="fatherId">
+                        <label for="fatherId">N.o de arete del padre</label>
+                        <input type="text" id="fatherId" class="form-control">
+                    </div>
+                    <div class="motherId">
+                        <label for="motherId">N.o de arete de la madre</label>
+                        <input type="text" id="motherId" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+            window.$ = window.jQuery = require('jquery')
+            require('bootstrap')
+
+            
+            const RanchAndSectionController = require('./js/controller/AdministrativeUnitController.js')
+            const LivestockVC = require('./js/viewcontrol/LivestockViewControl.js')
+
+
+            function createRanchSelector(){
+                const ranchController = new RanchAndSectionController();
+
+                ranchController.getRanches().then(
+                    success=>{
+                        console.log(success);
+                        
+                        $("#ranch").append("<option selected disabled>Seleccione un rancho</option>");
+                        success.forEach(element => {
+                            $("#ranch").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                        });
+                    }
+                )
+            }
+
+            function createSectionSelector(ranchId) {
+                $("#animalSectionId").html("");
+                const ranchController = new RanchAndSectionController();
+                ranchController.getSections(ranchId).then(
+                    success=>{
+                        console.log(success);
+
+                        $("#animalSectionId").append("<option selected disabled>Seleccione una sección</option>");
+                        success.forEach(element => {
+                            $("#animalSectionId").append(
+                                '<option value="'+element.sectionId+'">'+element.sectionName+"</option>"
+                            )
+                        });
+                    }
+                )
+            }
+
+            $("#saveBtn").click(function(){
+                LivestockVC.saveCow();
+            });
+
+            $(document).ready(function(){
+                createRanchSelector();
+            })
+        </script>
+    </body>
+</html>

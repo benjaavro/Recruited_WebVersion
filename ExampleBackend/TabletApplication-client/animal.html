@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="node_modules/datatables.net-dt/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+    </head>
+    <body class="bg-app">
+        <h3 class="text-center">Consulta de animales</h3>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <a class="btn btn-primary text" href="livestock-main.html">Atrás</a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container-90">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Rancho</label>
+                        <select id="ranch" class="form-control" onchange="createSectionSelector($(this).val())"></select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Área/sección</label>
+                        <select id="section" class="form-control" onchange="createAnimalSelector($(this).val())"></select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Animal</label>
+                        <select id="animal" class="form-control" ></select>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <button class="btn btn-primary" id="ccSearch">Buscar</button>
+                </div>
+                <div class="col-md-4">
+                    <br>
+                </div>
+                <div class="col-md-4">
+                    <a class="btn btn-secondary" href="animal.html">Limpiar</a>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="feedback"></div>
+                    <table id="cowData" class="table table-striped table-bordered d-none">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Nombre</td>
+                                <td id="name"></td>
+                            </tr>
+                            <tr>
+                                <td>Raza</td>
+                                <td id="race"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <div id="feedback"></div>
+                    <table id="cowData2" class="table table-striped table-bordered d-none">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Genero</td>
+                                <td id="gender"></td>
+                            </tr>
+                            <tr>
+                                <td>Estatus</td>
+                                <td id="status"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="table" class="table table-bordered d-none">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Código de barras</th>
+                                <th>Artículo</th>
+                                <th>Valor de transacción</th>
+                                <th>Acumulado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="">
+
+                        </tbody>
+                    </table>
+
+                    <table id="table1" class="table table-bordered d-none">
+                        <thead>
+                            <tr>
+                                <th>Categoría mayor</th>
+                                <th>Valor acumulado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblbody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            window.$ = window.jQuery = require('jquery')
+            require('bootstrap')
+
+            
+            const dates = require('./js/util/DateAndNumber.js')
+
+            const AdministrativeUnitController = require('./js/controller/AdministrativeUnitController.js')
+            const CowController = require('./js/controller/CowController.js')
+            const cardexConsult = require('./js/viewcontrol/LivestockReportViewControl.js')
+
+
+            function createRanchSelector(){
+                const ranchController = new AdministrativeUnitController();
+
+                ranchController.getRanches().then(
+                    success=>{
+                        console.log(success);
+                        
+                        $("#ranch").append("<option selected disabled>Seleccione un rancho</option>");
+                        success.forEach(element => {
+                            $("#ranch").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                        });
+                    }
+                )
+            }
+
+            function createSectionSelector(ranchId) {
+                $("#section").html("");
+                const ranchController = new AdministrativeUnitController();
+                ranchController.getSections(ranchId).then(
+                    success=>{
+                        console.log(success);
+
+                        $("#section").append("<option selected disabled>Seleccione una sección</option>");
+                        success.forEach(element => {
+                            $("#section").append(
+                                '<option value="'+element.sectionId+'">'+element.sectionName+"</option>"
+                            )
+                        });
+                    },err=>{
+                        alert("Error al cargar secciones");
+                        console.log(err);
+                    }
+                )
+            }
+
+            function createAnimalSelector(sectionId){
+                const cowController = new CowController();
+                console.log(sectionId);
+                
+                cowController.getCowsForSection(sectionId).then(
+                    
+                    succCowsSect=>{
+                        console.log(succCowsSect);
+
+                        if(succCowsSect.length > 0){
+                            $("#animal").append("<option selected disabled>Seleccione un animal.</option>");
+                            succCowsSect.forEach(element => {
+                                $("#animal").append(
+                                    '<option value="'+element.earringId+'">'+element.earringId+"</option>"
+                                )
+                            });
+                        }else{
+                            alert("No hay animales en sección");
+                            //$("#feedback").append("<span class='alert alert-warning'>No hay vacas en la sección.</span><br>");
+                        }
+                    },errCowsSect=>{
+                        console.log(errCowsSect);
+                    }
+                )
+            }
+
+            $(document).ready(function(){
+                createRanchSelector();
+
+                $("#ccSearch").click(function(){
+                    let costCenter = $("#animal").val();
+
+                    if(!costCenter){
+                        alert("Seleccione un numero de arete");
+                        return;
+                    }
+                    cardexConsult.getAnimalCardex(costCenter);
+                })
+            })
+
+        </script>
+    </body>
+</html>
