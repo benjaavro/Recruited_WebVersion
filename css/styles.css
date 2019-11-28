@@ -16,12 +16,13 @@
 }
 
 #col-left {
-    height: 701px;
+    height: 703px;
     background-color: white;
     position: sticky;
     z-index: 0;
     padding-top: 100px;
     padding-left: 30px;
+    border-right: 2px solid #343a40;
 }
 
 #col-center {
@@ -32,10 +33,11 @@
 }
 
 #col-right {
-    height: 701px;
+    height: 703px;
     background-color: white;
     position: sticky;
     z-index: 0;
+    border-left: 2px solid #343a40;
 }
 
 .menu-item {
@@ -49,16 +51,21 @@
     margin-left: -30px; 
 }
 
-.menu-item:hover {
+.menu-item:hover, .bd-toc-item:hover {
     text-decoration: none;
     color: white;
 }
 
 .menu-title {
-    color: lightgray;
+    color: #343a40;
+    opacity: 0.7;
     font-style: italic;
     font-size: 1.5em;
     padding-left: 30px;
+}
+
+.navbar {
+    border-bottom: 2px solid #343a40;
 }
 
 /* Sweep To Right */
@@ -74,6 +81,7 @@
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
+
 .hvr-sweep-to-right:before {
   content: "";
   position: absolute;
@@ -95,9 +103,11 @@
   -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
 }
+
 .hvr-sweep-to-right:hover, .hvr-sweep-to-right:focus, .hvr-sweep-to-right:active {
   color: white;
 }
+
 .hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
