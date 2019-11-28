@@ -23,3 +23,7 @@ label {
 #email, #password {
     color: white;
 }
+
+#select-login {
+    color: white;
+}
