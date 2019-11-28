@@ -90,7 +90,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: lightgray;
+  background: #343a40;
+    opacity: 0.9;
   color: white;
   -webkit-transform: scaleX(0);
   transform: scaleX(0);
