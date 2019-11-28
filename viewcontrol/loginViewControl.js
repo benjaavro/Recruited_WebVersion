@@ -1,6 +1,7 @@
-const LoginController = require('../controller/loginController');
+//const LoginController = require('../controller/loginController');
 
-module.exports = function(user, password, role) {
+var loginViewControl = function (user, password, role) {
+
     const data = {};
     
     data.User = user;
@@ -10,11 +11,12 @@ module.exports = function(user, password, role) {
         if(fullfill.length > 0) {
             window.location.replace('index.html');  
         } else {
-            $("modal-text").textContent("Incorrect! Verify usename and password.");
+
+            $("#modal-text").text("Incorrect! Verify usename and password.");
             $("#myModal").modal();
         }
     }).catch(err => {
-        $("modal-text").textContent("SERVER ERROR :/");
+        $("#modal-text").text("SERVER ERROR :/");
         $("#myModal").modal();
     })
 }

@@ -1,7 +1,10 @@
-const axios = require('axios');
+//const axios = require('axios');
 
 class LoginController {
     loginAthlete(data) {
+
+        console.log("Hello there " + axios.post);
+
         return new Promise((resolve, reject) => {       axios.post('http://10.25.241.57:3000/usr/loginAthlete',data).then(function(success) {
             console.log(success);
             resolve(success.data);
@@ -13,4 +16,4 @@ class LoginController {
     }
 }
 
-module.exports = LoginController
+//module.exports = LoginController
