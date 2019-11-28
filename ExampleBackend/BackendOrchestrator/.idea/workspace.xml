@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="70d55293-b0d6-4158-abe3-c84d4b9109ae" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/loginController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/model/loginModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/loginRoute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/util/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="70d55293-b0d6-4158-abe3-c84d4b9109ae" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -214,18 +204,17 @@
       <workItem from="1552598818239" duration="1974000" />
       <workItem from="1552630297846" duration="87000" />
       <workItem from="1552669481408" duration="1057000" />
-      <workItem from="1574877714433" duration="3112000" />
+      <workItem from="1574877714433" duration="3123000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24398000" />
+    <option name="totallyTimeSpent" value="24409000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18927065" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18927065" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -239,7 +228,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.23673469" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.23673469" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
