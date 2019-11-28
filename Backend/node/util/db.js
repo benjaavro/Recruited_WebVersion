@@ -3,11 +3,11 @@ const mysql             = require('mysql')
 
 const connectionPool = mysql.createPool({
     connectionLimit: 1000,
-    host: '107.180.40.145',
+    host: '127.0.0.1',
     port: 3306,
-    user: 'Testuser',
-    password: 'ControlGanadero',
-    database: 'SistemaDeControlGanadero'
+    user: 'Alex',
+    password: 'Mortadelo97',
+    database: 'RecruitedApp'
 });
 
 connectionPool.getConnection((err,conn)=>{

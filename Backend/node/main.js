@@ -3,6 +3,8 @@ const methodOverride    = require('method-override')
 const bodyParser        = require('body-parser')
 const http              = require('http')
 
+
+const loginRoute = require('./routes/loginRoute')
 const app = express();
 
 //Parse urlencoded
@@ -18,6 +20,8 @@ app.use((req, res, next)=>{
     res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
     next();
 });
+
+loginRoute(app);
 
 app.listen(3000,()=>{
     console.log('Server listening at port 3000');
