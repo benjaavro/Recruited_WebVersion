@@ -1,0 +1,19 @@
+#col-center {
+    background-color: white;
+}
+
+#col-right {
+}
+
+#portrait {
+    background-image: url(../img/bar.jpg);
+    background-size: cover;
+    background-position: center;
+    background-position: center;
+    display: block;
+    max-width: 100%;
+    margin-top: 50px;
+    margin-left: 0;
+    height: 450px;
+    opacity: 0.95;
+}
