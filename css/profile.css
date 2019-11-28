@@ -2,9 +2,6 @@
     background-color: white;
 }
 
-#col-right {
-}
-
 #portrait {
     background-image: url(../img/bar.jpg);
     background-size: cover;
@@ -16,4 +13,19 @@
     margin-left: 0;
     height: 450px;
     opacity: 0.95;
+}
+
+
+#name-title {
+    color: white;
+    margin-top: 390px;
+    margin-left: 10px;    
+}
+
+#profile-info {
+    margin-left: 10px;
+}
+
+#info-title {
+    
 }
