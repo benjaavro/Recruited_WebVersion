@@ -48,6 +48,11 @@
                                 <small class="form-text text-muted">Valid email only (ex. mail@recruited.com)</small>
                             </div>
                             <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control bg-dark" id="password">
+                                <small class="form-text text-muted">Valid password only (Recomended +8 characters)</small>
+                            </div>
+                            <div class="form-group">
                                 <label for="phone">Phone</label>
                                 <input type="phone" class="form-control bg-dark" id="phone">
                                 <small class="form-text text-muted">10 digits (ex. 5578101174)</small>
@@ -69,21 +74,18 @@
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <label for="sex">Sex</label>
-                                    <div class="form-group" id="sex">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="radioFemale" value="female" checked style="margin-left: 3px;">
-                                        <label class="form-check-label" style="margin-left: 20px;">Female</label>
-                                        
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="radioMale" value="male" style="margin-left: 30px;">
-                                        <label class="form-check-label" style="margin-left: 48px;">Male</label>
-                                    </div>
+                                    <label for="role">Role</label>
+                                    <select class="custom-select mr-sm-2 bg-dark role" id="sex">
+                                        <option value="F">Female</option>
+                                        <option selected value="M">Male</option>
+                                    </select>
                                 </div>
                                 <small id="sexHelp" class="form-text text-muted" style="margin: auto; text-align: center;">We are an inclusive community, but need to know your biological sex and your age to compete in your corresponding sport category. Everybody is welcome in Recruited :)</small>
                             </div>
                             <div class="row" style="margin-top: 20px; margin-bottom: 80px;">
                                 <div class="col-2"></div>
                                 <div class="col-8">
-                                    <a href="login.html">
+                                    <a href="#">
                                         <button class="btn bg-light" type="submit" id="signup-button">Sign Up</button>
                                     </a>
                                 </div>
@@ -92,9 +94,27 @@
                         </div>
                         <div class="col-2"></div>
                     </div>
-                    
                 </div>
                 <div class="col-3"></div>
+
+                <div class="modal" tabindex="-1" role="dialog" id="myModal">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">ERROR</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p id="modal-text"></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -104,5 +124,17 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./controller/signupController.js" language="javascript"></script>
+    <script src="./viewcontrol/signupViewControl.js" language="javascript"></script>
+
+    <script>
+        //LoginController = require('./viewcontrol/loginViewControl.js');
+        $(document).ready(function() {
+            $("#signup-button").click(function() {
+                signupViewControl($("#role").val(), $("#name").val(), $("#email").val(), $("#phone").val(), $("#location").val(), $("#team").val(), $("#age").val(), $("#sex").val(), $("#password").val());
+            })
+        })
+    </script>
   </body>
 </html>
