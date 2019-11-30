@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="css/styles.css">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Sistema de control ganadero</title>
+    </head>
+    <body class="bg-app">
+        <div class="container-fluid principal">
+            <div class="row">
+                <div class="col-10 offset-1">
+
+                    <!--Sección título-->
+                    <div class="row">
+                        <div class="col text-center">
+                            <h3>Creación de artículos de inventario principal</h3>
+                        </div>
+                    </div>
+
+                    <!--Sección botón atrás-->
+                    <div class="row">
+                        <div class="col">
+                            <a class="btn btn-primary" href="catalog-main.html">Atrás</a>
+                        </div>
+                    </div>
+                    <br><br>
+                    <!--Sección del main body-->
+                    <div class="row content">
+                        <!--Sección de los controles principales-->
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col d-flex justify-content-center">
+                                    <img src="img/camera.png" alt="..." class="img-thumbnail">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary btn-block">Tomar Foto</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-success btn-block" id="registerItem">Creación</button>
+                                </div>
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-danger btn-block">Baja</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn btn-primary btn-block">Modificación</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="catalog-main.html" class="btn btn-primary btn-block">Limpiar</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Sección del formulario-->
+                        <div class="col-8 scrollable">
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-6 form-group">
+                                        <label for="categoriaPrincipal">Categoría principal:</label>
+                                        <select class="form-control" id="categoriaPrincipal" placeholder="Seleccionar categoría" onchange="itemCategoriesDropDown($(this).val(),'categoriaSecundaria','No hay mas subcategorias para esta categoria');">     
+                                        </select>
+
+                                        <div class="d-none" id="categoriaSecundaria_disp">
+                                            <label for="categoriaSecundaria">Categoría secundaria</label>
+                                            <select class="form-control" id="categoriaSecundaria" onchange="itemCategoriesDropDown($(this).val(),'categoriaTerciaria','No hay mas subcategorias para esta categoria');">
+            
+                                            </select>
+                                        </div>
+
+                                        <div class="d-none" id="categoriaTerciaria_disp">
+                                            <label for="categoriaTerciaria">Categoría Terciaria</label>
+                                            <select class="form-control" id="categoriaTerciaria" onchange="itemCategoriesDropDown($(this).val(),'categoriaCuaternaria','No hay mas subcategorias para esta categoria');">
+            
+                                            </select>
+                                        </div>
+
+                                        <div class="d-none" id="categoriaCuaternaria_disp">
+                                            <label for="categoriaCuaternaria">Categoría Cuaternaria</label>
+                                            <select class="form-control" id="categoriaCuaternaria">
+                                                
+                                            </select>
+                                        </div>
+
+                                        <label for="unidadDeMedida">Unidad de medida (uso):</label>
+                                        <input type="text" class="form-control" id="unidadDeMedida">
+
+                                        <label for="unidadDeCompra">Unidad de compra (uso):</label>
+                                        <input type="text" class="form-control" id="unidadDeCompra">
+
+                                        <label for="factorDeConversion">Factor de conversión:</label>
+                                        <input type="number" class="form-control" id="factorDeConversion">
+
+                                        <label for="iva">¿Tiene Iva?:</label>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" id="ivaSi" value=1 name="iva">
+                                            <label class="form-check-label" for="ivaSi">
+                                                Si
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" id="ivaNo" value=0 name="iva">
+                                            <label class="form-check-label" for="ivaNo">
+                                                No
+                                            </label>
+                                        </div>
+
+                                        <label for="ieps">¿Tiene I.E.P.S.?:</label>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" id="iepsSi" value="1" name="ieps">
+                                            <label class="form-check-label" for="iepsSi">
+                                                Si
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input" id="iepsNo" value=0 name="ieps">
+                                            <label class="form-check-label" for="iepsNo">
+                                                No
+                                            </label>
+                                        </div>
+
+                                        <label for="origen">Origen:</label>
+                                        <input type="text" class="form-control" id="origen">
+
+                                        <label for="codigoBarras">Código de Barras/ID del producto:</label>
+                                        <input type="number" class="form-control" id="codigoBarras">
+
+                                        <label for="nombreProducto">Nombre del producto:</label>
+                                        <input type="text" class="form-control" id="nombreProducto">
+
+                                        <label for="marcaProducto">Marca del producto:</label>
+                                        <input type="text" class="form-control" id="marcaProducto">
+
+                                        <label for="descripcionProducto">Descripción del producto: </label>
+                                        <textarea class="form-control" id="descripcionProducto" rows="3"></textarea>
+
+                                        <label for="tipoRegistroSalida">Tipo de registro de salida:</label>
+                                        <input type="text" class="form-control" id="tipoRegistroSalida">
+
+                                        <label for="precioPromedio">Precio promedio:</label>
+                                        <input type="number" class="form-control" id="precioPromedio">
+
+                                        <label for="tipoCosto">Tipo de Costo:</label>
+                                        <input type="text" class="form-control" id="tipoCosto">
+                                    </div>
+
+                                    <div class="col-6 form-group">
+                                        <label for="maxCantidadInventarios">Máxima cantidad de inventarios (U.de compra):</label>
+                                        <input type="number" class="form-control" id="maxCantidadInventarios">
+
+                                        <label for="minCantidadInventarios">Minima cantidad de inventarios (U. de compra):</label>
+                                        <input type="number" class="form-control" id="minCantidadInventarios">
+
+                                        <label for="tiempoEntrega">Tiempo de entrega (días):</label>
+                                        <input type="number" class="form-control" id="tiempoEntrega">
+
+                                        <label for="prioridad">Prioridad: </label>
+                                        <select class="form-control" id="prioridad">
+                                            <option value="alta">Alta</option>
+                                            <option value="media">Media</option>
+                                            <option value="baja">Baja</option>
+                                        </select>   
+
+                                        <label for="holgura">Holgura:</label>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="holguraSi" value="1" name="holgura" onclick="display('laholgura',true)">
+                                                <label class="form-check-label" for="holguraSi">
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="holguraNo" value="0" name="holgura" onclick="display('laholgura')">
+                                                <label class="form-check-label" for="holguraNo">
+                                                    No
+                                                </label>
+                                            </div>
+                                        <div class="d-none" id="laholgura">
+                                            <label for="diasHolgura">Días de holgura:</label>
+                                            <input type="number" class="form-control" id="diasHolgura">
+                                        </div>
+
+                                        <label for="expiracion">¿Control de Caducidad?:</label>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="expiracionSi" value="1" name="expiracion">
+                                                <label class="form-check-label" for="expiracionSi">
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="expiracionNo" value="0" name="expiracion">
+                                                <label class="form-check-label" for="expiracionNo">
+                                                    No
+                                                </label>
+                                            </div>
+                                        
+                                        <label for="tipoSalida">Tipo de registro de salida: </label>
+                                        <select class="form-control" id="tipoSalida">
+                                            <option value="PEPS">Primeras Entradas Primeras Salidas</option>
+                                            <option value="UEPS">Ultimas Entradas Primeras Salidas</option>
+                                            <option value="AVG">Promedios</option>
+                                        </select>   
+
+                                        <label for="prodInt">¿Es de producción interna? :</label>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="prodIntSi" value="1" name="prodInt" onclick="display('wprodint',true)">
+                                                <label class="form-check-label" for="prodIntSi">
+                                                    Si
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="prodIntNo" value="0" name="prodInt" onclick="display('wprodint')">
+                                                <label class="form-check-label" for="prodIntNo">
+                                                    No
+                                                </label>
+                                            </div>
+                                            
+                                        <div class="d-none" id="">
+                                            <label for="diasHolgura">Días de holgura:</label>
+                                            <input type="number" class="form-control" id="diasHolgura">
+                                        </div>
+
+                                        <div class="d-none" id="wprodint">
+                                        <label for="tiempoEsperaInterno">Tiempo de Espera:</label>
+                                        <input type="number" class="form-control" id="tiempoEsperaInterno">
+                                        </div>
+
+                                        <label for="condEspecAlma">Condiciones especiales de almacenamiento: </label>
+                                        <textarea class="form-control" id="condEspecAlma" rows="3"></textarea>
+
+                                        <label for="precioEstandar">Precio estandar:</label>
+                                        <input type="text" class="form-control" id="precioEstandar">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script> 
+            window.$ = window.jQuery = require('jquery');
+            require('./js/viewcontrol/RegisterInventoryViewControl.js');
+            
+            var CategoryController = require('./js/controller/CategoryController.js');
+        
+
+            function display(id,shd){
+                if(shd) $("#"+id).removeClass('d-none');
+                else $("#"+id).addClass('d-none');
+            }
+
+            function itemCategoriesDropDown(id,dropDownTarget,message){
+                var categoryController = new CategoryController();
+                $("#"+dropDownTarget).html("");
+
+                if(dropDownTarget == 'categoriaSecundaria'){
+                    kill3rdAnd4thChild();
+                }
+
+                if(dropDownTarget == 'categoriaTerciaria'){
+                    kill3rdAnd4thChild();
+                }
+
+                categoryController.getCategories(id).then(
+                    success=>{
+                        console.log(success);
+                        if(success.length > 0){
+                            $("#"+dropDownTarget).append(
+                                "<option disabled selected>seleccione una opción</option>"
+                            );
+                            $("#"+dropDownTarget+"_disp").removeClass('d-none');
+                            success.forEach(element => {
+                                $("#"+dropDownTarget).append(
+                                    "<option value="+element.idCategory+">"+element.alias+" - "+element.categoryName+"</option>"
+                                );
+                            });
+
+                            
+                        }
+                    },err=>{
+                        console.log(err);
+                        alert(message);
+                    }
+                )
+            }
+
+            function kill3rdAnd4thChild(){
+                $("#categoriaTerciaria_disp").addClass('d-none');
+                $("#categoriaCuaternaria_disp").addClass('d-none');
+
+                $("#categoriaTerciaria").html('');
+                $("#categoriaCuaternaria").html('');
+            }
+
+            $(document).ready(function(){
+                itemCategoriesDropDown(null,"categoriaPrincipal","Hubo un error al cargar parte de la app")
+            });
+        </script>
+    </body>
+</html>

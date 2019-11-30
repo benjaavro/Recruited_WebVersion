@@ -1,0 +1,74 @@
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.white{
+    color: white!important;
+}
+
+.img-thumbnail{
+    height: 100%;
+    width: 100%;
+}
+
+.bg-app{
+    background: url('../img/fondo.png');
+    background-size: cover;
+}
+
+.bg-login{
+    background: linear-gradient(to top left,rgb(61, 143, 38), rgb(33,86,58));
+    background-size: cover;
+}
+
+.well{
+    height: auto;
+    width: 80%;
+    padding: 20px;
+    border: 5px solid darkslategrey;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.well-intro{
+    height: auto;
+    width: 98%;
+    padding: 5px;
+    border: 5px solid lightgray;
+    background-color: lightgray;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.container-80{
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.container-90{
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.alert-success{
+    background-color: green!important;
+}
+
+.modal-custom{
+    width: 800px!important;
+    margin: auto;
+}

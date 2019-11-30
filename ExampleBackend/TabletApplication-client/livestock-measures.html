@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+    </head>
+    <body class="bg-app">
+        <div class="container-fluid">
+        <h2 class="text-center">Registro de Peso y Altura</h2>
+
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-primary" href="livestock-main.html">Atrás</a>
+            </div>
+        </div>
+        <div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Rancho</label>
+                    <select id="ranch" class="form-control" onchange="createSectionSelector($(this).val());"></select>
+                </div>
+                <div class="col-md-6">
+                    <label>Sección</label>
+                    <select id="zoneOrigin" class="form-control" onchange="createCowDataSelector($(this).val());"></select>
+                    <span id="animalSectionIdFeedback"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group text-center">
+                        <label for="vendorRfc">Id de Animal</label>
+                        <input type="text" id="animalEarringId" class="form-control"> 
+                        <span id="animalEarringIdFeedback"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group text-center">
+                        <label for="vendorRfc">Peso</label>
+                        <input type="text" id="weight" class="form-control"> 
+                        <span id="weightFeedback"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group text-center">
+                        <label for="vendorRfc">Altura Cruz</label>
+                        <input type="text" id="crossHeight" class="form-control"> 
+                        <span id="crossHeightFeedback"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <br>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group text-center">
+                        <label for="vendorRfc">Diametro Torax</label>
+                        <input type="text" id="toraxDiameter" class="form-control"> 
+                        <span id="toraxDiameterFeedback"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <button class="btn btn-primary center-block" id="save">Guardar</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <a class="btn btn-secondary" href="livestock-measures.html">Limpiar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.$ = window.jQuery = require('jquery')
+        require('bootstrap')
+        require('./js/vendor/jquery.auto-complete.min.js')
+
+        
+        const TableRows = require('./js/util/TableRows.js')
+
+        const RanchAndSectionController = require('./js/controller/AdministrativeUnitController.js')
+        const CowController = require('./js/controller/CowController.js')
+
+        const LiveStockMeasuresViewControl = require('./js/viewcontrol/LivestockMeasuresViewControl.js')
+
+        var data = {};
+        var tags = [];
+
+        const tableRows = new TableRows({
+            cellNumber: 5,
+            idSet: ['weight','weightDate','animalEarringId','crossHeight','toraxDiameter'],
+            appendTo: 'detailHeadOrder'
+        })
+
+        function createRanchSelector(id){
+            const ranchController = new RanchAndSectionController();
+            $("#"+id).html("");
+
+            ranchController.getRanches().then(
+                success=>{
+                    console.log(success);
+
+                    $("#"+id).append("<option selected disabled>Seleccione un rancho</option>");
+                    success.forEach(element => {
+                        $("#"+id).append(
+                            '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                        )
+                    });
+                }
+            )
+        }
+
+        function createSectionSelector(ranchId) {
+            $("#zoneOrigin").html("");
+            const ranchController = new RanchAndSectionController();
+            ranchController.getSections(ranchId).then(
+                success=>{
+                    console.log(success);
+
+                    $("#zoneOrigin").append("<option selected disabled>Seleccione una sección</option>");
+                    success.forEach(element => {
+                        $("#zoneOrigin").append(
+                            '<option value="'+element.sectionId+'">'+element.sectionName+"</option>"
+                        )
+                    });
+
+                    createCowSelector(tags);
+                },err=>{
+                    alert("Error al cargar secciones");
+                    console.log(err);
+                }
+            )
+        }
+
+        function createCowSelector(dataSource){
+            $("#animalEarringId").autoComplete({
+                minChars: 2,
+                source: function(term,suggest){
+                    term = term.toLowerCase();
+                    var matches = [];
+                    for (let i = 0; i < dataSource.length; i++) {
+                        if(~dataSource[i].toLowerCase().indexOf(term)) 
+                            matches.push(dataSource[i]);
+                    }
+                    suggest(matches);
+                },onSelect: function(e,term,item){
+                    $("#earringId").val(data[term].earringId);
+                }
+            })
+        }
+
+        function createCowDataSelector(idLook){
+            const cowController = new CowController();
+
+            cowController.getCowsForSection(idLook).then(
+                success=>{
+                    console.log(success);
+                    
+                    if(success.length > 0){
+                        success.forEach(element=>{
+                            data[element.earringId] = element;
+                            tags.push(element.earringId);
+                        })
+                    }else{
+                        alert("No hay animales en esta sección")
+                    }
+                },err=>{
+                    console.log(err);
+                    alert("Hubo un error al obtener los animales en esta sección");
+                }
+            )
+        }
+
+        $(document).ready(function(e){
+            createRanchSelector("ranch");
+            $("#save").click(function(){
+                LiveStockMeasuresViewControl.createMeasure();
+            })
+        })
+    </script>
+    </body>
+</html>

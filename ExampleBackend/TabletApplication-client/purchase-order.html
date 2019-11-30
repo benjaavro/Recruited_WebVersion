@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+    </head>
+    <body class="bg-app">
+        <div class="container-fluid">
+        <h2 class="text-center">Creación de órdenes de compra</h2>
+        <div class="row">
+            <div class="col-md-2">
+                <a class="btn btn-primary" href="inventory-main.html">Atrás</a>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-light pageTitleBtn" data-toggle="modal" data-target="#exampleModal">Ayuda</button>
+
+                <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" 
+                role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ayuda sobre Órdenes de compra</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>    
+                                    Aqui se elaboran las ordenes de compra para reabastecer el inventario.
+                                    <br>
+                                    Es importante recordar que una vez su orden de compra ha sido capturada,
+                                    debe notificar a su supervisor para que el la autorice.
+                                </p>     
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id ="normatividad" class="btn btn-secondary">Abrir Normatividad</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div>
+            <h3 class="text-center">Datos generales</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                            <label>Número de Transacción
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default fas fa-question-circle" data-toggle="popover"
+                                     tabindex="-1" data-trigger="focus" 
+                                     title="Este campo no lo llene! Acá aparecerá el número identificador de su orden de compra."></a>
+                                </span>
+                            </label>
+                        <input type="text" id="transactId" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="vendorRfc">
+                            RFC de proveedor
+                            <span class="input-group-btn">
+                                <a class="btn btn-default fas fa-question-circle" 
+                                data-toggle="popover" tabindex="-1" data-trigger="focus" 
+                                title="RFC de Proveedor"  data-content="Introduzca el RFC del provedor."></a>
+                            </span>
+                        </label>
+                        <input type="text" id="vendorRfc" class="form-control"> 
+                        <span id="vendorRfcFeedback"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="currency">
+                            Moneda
+                            <span class="input-group-btn">
+                                <a class="btn btn-default fas fa-question-circle" 
+                                data-toggle="popover" tabindex="-1" data-trigger="focus" 
+                                title="Moneda"  
+                                data-content="Seleccione el tipo de moneda que se utilizara para solciitar productos en la orden de compra."></a>
+                            </span>
+                        </label>
+                        <select id="currency" class="form-control">
+                            <option value="MXP">Pesos mexicanos</option>
+                            <option value="DLS">Dólares</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="costCenterId">
+                            Centro de Costos
+                            <span class="input-group-btn">
+                                <a class="btn btn-default fas fa-question-circle" 
+                                data-toggle="popover" tabindex="-1" 
+                                data-trigger="focus" title="Centro de Costos"  
+                                data-content="Seleccione el centro de costos que realizará la orden de compra.">
+                                </a>
+                            </span>
+                        </label>
+                        <select id="costCenterId" class="form-control">
+                            <option disabled selected>Seleccione un centro de costos</option>
+                            <option value="CC-RLDD-INV">Inventario Leon De Dios</option>
+                            <option value="CC-RLGL-INV">Inventario La Gloria</option>
+                        </select>
+                        <span id="costCenterIdFeedback"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="vendorName">                        
+                            <span class="input-group-btn">
+                                <a class="btn btn-default fas fa-question-circle"
+                                 data-toggle="popover" tabindex="-1" data-trigger="focus" 
+                                 title="Moneda"  
+                                 data-content="Seleccione el tipo de moneda que se utilizara para ejecutar la orden de compra."></a>
+                            </span>
+                        Nombre de proveedor</label>
+                        <input type="text" id="vendorName" class="form-control"> 
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="purchaseOrderAmount">
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default fas fa-question-circle" 
+                                    data-toggle="popover" tabindex="-1" data-trigger="focus" 
+                                    title="Total de orden de compra"  
+                                    data-content="Este campo se llena en automático, generando el total ."></a>
+                                </span>
+                                Total de orden de compra</label>
+                        <input type="text" id="purchaseOrderAmount" class="form-control"> 
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="unitsAcquired">Unidades a adquirir</label>
+                        <input type="text" id="unitsAcquired" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="text-center">Detalle de la orden</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Código de producto</th>
+                                <th>Nombre del producto</th>
+                                <th>Precio Unitario</th>
+                                <th>Cantidad a requerir</th>
+                                <th>Precio total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detailHeadOrder">
+                            <tr id="tr1">
+                                <td><input type="text" id="itemRequested1" class="form-control"></td>
+                                <td><input type="text" id="productName1" class="form-control"></td>
+                                <td><input type="text" id="unitValueExpected1" class="form-control"></td>
+                                <td><input type="text" id="quantityRequested1" class="form-control"></td>
+                                <td><input type="text" id="total1" class="form-control listen-enter"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <button class="btn btn-primary center-block" id="save">Guardar</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <a class="btn btn-secondary" href="purchase-order.html">Limpiar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.$ = window.jQuery = require('jquery')
+        require('bootstrap')
+        require('./js/vendor/jquery.auto-complete.min.js')
+
+        const InventoryController = require('./js/controller/InventoryController.js')
+        const VendorController    = require('./js/controller/VendorController.js')
+        
+        const TableRows = require('./js/util/TableRows.js')
+        const PurchaseOrderViewControl = require('./js/viewcontrol/PurchaseOrderViewControl.js')
+
+        var remote = require('electron').remote;    
+        const main = remote.require('./main.js') 
+        
+        var tags = [];
+        var data = {};
+        var vendors = [];
+
+        var orderTotal = 0; //Holder for val
+        var rowsT;
+        var orderCt = 0;
+
+        let accepting = true;
+
+        const tableRows = new TableRows({
+            cellNumber: 5,
+            idSet: ['itemRequested','productName','unitValueExpected','quantityRequested','total'],
+            appendTo: 'detailHeadOrder'
+        })
+
+        function apendTableRow(id){
+            if(!this.cur)
+                    this.cur = 2;
+            
+            tableRows.appendRow(this.cur);
+            createAutoSugest(id+this.cur,tags,this.cur);
+            this.cur++;
+            rowsT = this.cur;
+        }
+
+        function vendorSelects(id,dataSource){
+            $(id).autoComplete({
+                minChars: 3,
+                source: function (term,suggest) {
+                    term = term.toLowerCase();
+                    var matches = [];
+
+                    for (let i = 0; i < dataSource.length; i++) {
+                        console.log(dataSource[i]);
+                        if(~dataSource[i].toLowerCase().indexOf(term)) 
+                            matches.push(dataSource[i]);
+                    }
+                    suggest(matches);
+                },onSelect: function (e,term,item) {
+                    $("#vendorName").val(vendors[term].vendorName);
+                }
+            })
+        }
+
+        function createAutoSugest(elementId,dataSource,pos){
+            $("#quantityRequested"+pos).addClass('tab-listener');
+
+            $(elementId).autoComplete({
+                minChars: 2,
+                source: function(term,suggest){
+                    term = term.toLowerCase();
+                    var matches = [];
+                
+                    for (let i = 0; i < dataSource.length; i++) {
+                        console.log(dataSource[i]);
+                        if(~dataSource[i].toLowerCase().indexOf(term)) 
+                            matches.push(dataSource[i]);
+                    }
+                    suggest(matches);
+                },
+                onSelect: function(e,term,item){
+                    console.log(term);
+                    console.log(pos);
+                    $("#itemRequested"+pos).val(data[term].itemId);
+                    $("#unitValueExpected"+pos).val(data[term].averagePrice);
+                }
+            });
+        }
+
+        $(document).ready(function(e){
+            var inventoryController = new InventoryController()
+            var vendorController    = new VendorController()
+
+            inventoryController.getItems().then(
+                success=>{                        
+                    success.forEach(element => {
+                        data[element.itemName] = element;
+                        tags.push(element.itemName);
+                        createAutoSugest("#productName1",tags,1);
+                    });
+                    console.log(data);
+                    
+                },err=>{
+                    console.log(err);
+                    alert("Hubo un error al cargar los tipos de artículos disponibles");
+                }
+            );
+
+            vendorController.getVendors().then(
+                success=>{
+                    var arr = [];
+                    if(success){
+                        success.forEach(element => {
+                            vendors[element.rfc] = element;
+                            arr.push(element.rfc);
+                        });
+
+                        vendorSelects("#vendorRfc",arr);
+                    }
+                },err=>{
+                    console.log(err);
+                    alert("Hubo un error al cambiar los proveedores en la app");
+                }
+            )
+
+            $("#save").click(function(){
+                if(accepting){
+                    if(!rowsT) rowsT = 2;
+                    PurchaseOrderViewControl.createPurchaseOrder(tableRows,rowsT);
+                }else{
+                    alert("Haga clic en limpiar para crear otra orden");
+                }
+            })
+
+            $(document).on('focusout','.tab-listener',function(e){
+                var actualId = e.currentTarget.attributes.getNamedItem("id").nodeValue;
+                var idNum    = actualId.replace("quantityRequested","");
+
+                var content = parseInt($("#"+actualId).val());
+
+                console.log("At focusout");
+
+                if(!Number.isInteger(content)){
+                    alert("Se espera un valor entero en la cantidad a requerir");
+                }else{
+                    var unitP = parseFloat($("#unitValueExpected"+idNum).val());
+                    var totalP = unitP * content;
+                    
+                    orderCt+=parseInt(content);
+                    totalP = totalP.toFixed(2);
+                    $("#total"+idNum).val(totalP);
+                
+                    orderTotal+=parseFloat(totalP);
+                    
+                    $("#unitsAcquired").val(orderCt);
+                    $("#purchaseOrderAmount").val(orderTotal.toFixed(2));
+                }
+            })
+
+            $(document).on('keypress','.listen-enter',function (e) {
+                if (e.key == 'Enter') {
+                    apendTableRow("#productName");
+                }
+            }) 
+
+            $("#normatividad").click(function(){
+                main.openWindow('http://3.17.14.30/?password-protected=logout')
+            })
+        });
+        
+    </script>
+    </body>
+</html>

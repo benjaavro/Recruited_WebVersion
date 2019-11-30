@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+    </head>
+
+    <body class="bg-app">
+        <div class="container">
+            <h3 class="text-center">Autorizaciones</h3>
+            <br>
+            <div id="feedback"></div>
+
+            <!--Standard buttons-->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <a class="btn btn-primary text" href="administration-main.html">Atrás</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <a href="authorizations.html" class="btn btn-secondary">Limpiar</a>
+                    </div>                
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <button class="btn btn-primary" id="saveBtn">Guardar</button>
+                    </div>
+                </div>
+            </div>
+            <br><br>
+
+            <!-- #Transaction type selectors -->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Tipo de transacción</label>
+                        <select id="transactionClass" class="form-control" onchange="transactionSelect($(this).val())">
+                            <option disabled selected>Seleccione un tipo de transacción</option>
+                            <option value="PO">Orden de compra</option>
+                            <option value="TRESPASS">Traspaso entre ranchos</option>
+                            <option value="ORGANIC">Conversión a orgánico</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- #Transaction type selectors -->
+        </div>
+
+        <!-- #Generic transaction data -->
+        <div class="container d-none" id="transactionsData">
+            <div class="row">
+                <table class="table table-striped">
+                    <thead id="genericTableHead" class="thead-dark"></thead>
+                    <tbody id="genericTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+        <!-- #Generic transaction data -->
+        
+        <!-- #Purchase Order Master And Detail -->
+        <div class="container d-none" id="purchaseOrderDetail">
+            <div class="row">
+                <div class="col-md-3">
+                    <button class="btn btn-primary" id="hidePODetail">Ocultar</button>
+                </div>
+                <div class="col-md-9">
+                    <h4>Detalle de Orden de compra</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>N.o de orden de compra</label>
+                        <input type="text" class="form-control" id="purchOrderNumber" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>RFC de proveedor</label>
+                        <input type="text" class="form-control" id="vendorRfc" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label># de elementos</label>
+                        <input type="text" class="form-control" id="elementQty" disabled>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Centro de costos</label>
+                        <input type="text" class="form-control" id="costCenter" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de creación</label>
+                        <input type="text" class="form-control" id="creationDate" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Total</label>
+                        <input type="text" class="form-control" id="elementTotal" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped table-light">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Nombre del producto</th>
+                                <th>Código de barras</th>
+                                <th>Valor por unidad supuesto</th>
+                                <th>Cantidad pedida</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pobody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- #Purchase Order Master And Detail -->
+        <script>
+            //External libraries
+            window.$ = window.jQuery = require('jquery')
+            require('bootstrap')  
+            require('./js/vendor/jquery.auto-complete.min.js')
+
+            const authorizations = require('./js/viewcontrol/AuthorizationViewControl.js')
+
+            function transactionSelect(transactionSelected){
+                $("#transactionsData").removeClass('d-none');
+                switch (transactionSelected) {
+                    case "PO":
+                        authorizations.getUnauthorizedPurchaseOrders('genericTableHead','genericTableBody');
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+            $(document).ready(function(){
+                $(document).on('click','.tbl-btn',function(event){
+                    const btnId = $(this).attr('id').split('_');
+
+                    switch (btnId[1]) {
+                        case 'pov':
+                            authorizations.displayPurchaseOrderDetail(btnId[2]);
+                            break;
+                    
+                        case 'auth':
+                            //TODO Authorization code
+                            authorizations.authorizePurchaseOrder(btnId[2]);
+                            break;
+                    }
+                })
+
+                $("#hidePODetail").click(function(){
+                    $("#purchaseOrderDetail").hasClass('d-none')? $("#purchaseOrderDetail").removeClass('d-none') : $("#purchaseOrderDetail").addClass('d-none')
+                })
+            });
+        </script>
+    </body>
+</html>

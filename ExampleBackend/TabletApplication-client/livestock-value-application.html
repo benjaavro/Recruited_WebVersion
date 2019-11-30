@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+    </head>
+    <body class="bg-app container-fluid">
+        <h3 class="text-center">Aplicación de valores</h3>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <a class="btn btn-primary text" href="livestock-main.html">Atrás</a>
+            </div>
+        </div>
+        <div class="container-80">
+            <div class="modal fade" id="foodModal" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Alimentación</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Código de producto</label>
+                                        <input type="text" id="productFeederId" class="form-control" disabled >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nombre del producto</label>
+                                        <input type="text" id="productFeederName" class="form-control" disabled >
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Cantidad en existencia</label>
+                                        <input type="text" id="productFeederExtNonEditable" class="form-control" disabled >
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Cantidad a dejar</label>
+                                        <input type="number" id="productFeederExtEditable" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                            <button type="button" class="btn btn-primary" id="feedTrigger">Alimentar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="vaccineModal" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Vacunación</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Código de producto</label>
+                                        <input type="text" id="vaccineId" class="form-control" disabled >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nombre del producto</label>
+                                        <input type="text" id="vaccineName" class="form-control" disabled >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>N.o de arete</label>
+                                        <input type="text" id="earringId" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>¿Es parte de la cartilla de vacunación?</label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="isVaccineOfCardex" id="inlineRadio1" value="yes">
+                                            <label class="form-check-label" for="inlineRadio1">Si</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="isVaccineOfCardex" id="inlineRadio2" value="no">
+                                            <label class="form-check-label" for="inlineRadio2">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                            <button type="button" class="btn btn-primary" id="vaccineTrigger">Vacunar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="diseaseModal" tabindex="-1">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Tratamiento de enfermedades</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Código de producto</label>
+                                        <input type="text" id="treatId" class="form-control" disabled >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Nombre del producto</label>
+                                        <input type="text" id="treatName" class="form-control" disabled >
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>N.o de arete</label>
+                                        <input type="text" id="earringIdT" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Enfermedad</label>
+                                        <select id="diseases"  class="form-control">
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Dosis a dejar</label>
+                                        <input id="leaveDosis" type="number" class="form-control" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Salir</button>
+                            <button type="button" class="btn btn-primary" id="treatmentTrigger">Registrar tratamiento</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label>¿En qué rancho estás?</label>
+                    <select id="ranch" class="form-control" 
+                        onchange="createSectionSelector($(this).val());createCostCenterSelector($(this).val())"></select>
+                </div>
+                <div class="col-md-3">
+                    <label>¿En qué sección estás?</label>
+                    <select id="section" class="form-control" onchange="createCowDataSelector($(this).val())"></select>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>¿Quien eres?</label>
+                        <select id="whoYouAre" class="form-control">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <br>
+                    <button class="btn btn-primary" id="searchInv">Buscar</button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="feedback"></div>
+                    <table id="prodtbl" class="d-none">
+                        <thead class="thead-dark">
+                            <th>Código de barras</th>
+                            <th>Producto</th>
+                            <th>Categoria principal</th>
+                            <th>Categoria secundaria</th>
+                            <th>Categoria terciaria</th>
+                            <th>Existencia</th>
+                            <th></th>
+                        </thead>
+                        <tbody id="prodtblbdy">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            window.$ = window.jQuery = require('jquery')
+            require('bootstrap')
+            require('./js/vendor/jquery.auto-complete.min.js')
+
+            const RanchAndSectionController = require('./js/controller/AdministrativeUnitController.js')
+            const SicknessTypeController = require('./js/controller/SicknessTypeController.js')
+            const CowController = require('./js/controller/CowController.js')
+
+            const LiveStockFeeding = require('./js/viewcontrol/LivestockValueApplicationViewControl.js')
+            
+            var data = {};
+            var tags = [];
+            var cows = [];
+
+            function createRanchSelector(){
+                const ranchController = new RanchAndSectionController();
+
+                ranchController.getRanches().then(
+                    success=>{
+                        console.log(success);
+                        
+                        $("#ranch").append("<option selected disabled>Seleccione un rancho</option>");
+                        success.forEach(element => {
+                            $("#ranch").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                        });
+                    }
+                )
+            }
+
+            function createSicknessSelector(id){
+                const sicknessController = new SicknessTypeController();
+                $("#"+id).html("");
+            
+                sicknessController.getSickness().then(
+                    success=>{
+                        console.log(success);
+                    
+                        $("#"+id).append("<option selected disabled>Seleccione una enfermedad</option>");
+                        success.forEach(element => {
+                            $("#"+id).append(
+                                '<option value="'+element.sicknessId+'">'+element.sicknessName+"</option>"
+                            )
+                        });
+                    }
+                )
+            }
+
+            function createSectionSelector(ranchId) {
+                $("#section").html("");
+                const ranchController = new RanchAndSectionController();
+                ranchController.getSections(ranchId).then(
+                    success=>{
+                        console.log(success);
+
+                        $("#section").append("<option selected disabled>Seleccione una sección</option>");
+                        success.forEach(element => {
+                            $("#section").append(
+                                '<option value="'+element.sectionId+'">'+element.sectionName+"</option>"
+                            )
+                        });
+                    },err=>{
+                        alert("Error al cargar secciones");
+                        console.log(err);
+                    }
+                )
+            }
+
+            function createCostCenterSelector(ranchId){
+                $("#whoYouAre").html("");
+                const ranchController = new RanchAndSectionController();
+                
+                ranchController.getCostCentersForRanch(ranchId).then(
+                    success=>{
+                        console.log(success);
+
+                        $("#whoYouAre").append("<option selected disabled>Seleccione una sección</option>");
+                        success.forEach(element => {
+                            $("#whoYouAre").append(
+                                '<option value="'+element.costCenterId+'">'+element.costCenterName+"</option>"
+                            )
+                        });
+                    },err=>{
+                        alert("Error al cargar centros de costos");
+                        console.log(err);
+                    }
+                )
+            }
+
+            function createCowSelector(dataSource,id){
+                $("#"+id).autoComplete({
+                    minChars: 2,
+                    source: function(term,suggest){
+                        term = term.toLowerCase();
+                        var matches = [];
+                        for (let i = 0; i < dataSource.length; i++) {
+                            if(~dataSource[i].toLowerCase().indexOf(term))
+                                matches.push(dataSource[i]);
+                        }
+                        suggest(matches);
+                    },onSelect: function(e,term,item){
+                        $("#"+id).val(data[term].earringId);
+                    }
+                })
+            }
+
+            function createCowDataSelector(idLook){
+                const cowController = new CowController();
+            
+                cowController.getCowsForSection(idLook).then(
+                    success=>{
+                        console.log(success);
+                        $("#feedback").html("");
+                    
+                        if(success.length > 0){
+                            success.forEach(element=>{
+                                data[element.earringId] = element;
+                                tags.push(element.earringId);
+                            })
+
+                            cows = success;
+
+                            createCowSelector(tags,"earringIdT");
+                            createCowSelector(tags,"earringId");
+                        }else{
+                            $("#feedback").html("<span class='alert alert-warning'>No se han encontrado vacas en la sección seleccionada.<br>¿Seguro que es la sección correcta?</span>");
+                        }
+                    },err=>{
+                        console.log(err);
+                        $("#feedback").html("<span class='alert alert-warning'>Hubo un error al buscar el ganado.</span>");
+                    }
+                )
+            }
+
+            $(document).ready(function(){
+                createRanchSelector();
+                createSicknessSelector('diseases');
+
+                $("#searchInv").click(function(){
+                    LiveStockFeeding.getUserInventory($("#whoYouAre").val());
+                });
+
+                $(document).on('click','.saverow',function(e){
+                    LiveStockFeeding.applyValueAtAnimals(this);
+                })
+
+                $("#vaccineTrigger").click(()=>{
+                    LiveStockFeeding.vaccine();
+                })
+
+                $("#feedTrigger").click(()=>{
+                    LiveStockFeeding.feed(cows);
+                })
+
+                $("#treatmentTrigger").click(()=>{
+                    LiveStockFeeding.treat();
+                })
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Sistema De Control Ganadero</title>
+    </head>
+    <body class="bg-app">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"><img src="img/usr-icon.png" width="30" height="30" class="d-inline-block align-top"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <a class="nav-link" id="userNameTgt"></a>
+                    </li>
+                </ul>
+            </div>
+            <form class="form-inline">
+                <button class="btn btn-outline-primary my-2 my-sm-0" id ="normatividad" class="btn btn-light helpMainBtn" href="#">Normatividad</button>  
+                <button class="btn btn-outline-danger my-2 my-sm-0" id="getOut"><h54>Salir</h4></button>
+            </form>
+        </nav>
+
+        <div class="container h-100">
+            <div class="row align-items-center h-100">
+                <div class="col-6 mx-auto">
+                    <h3 class="text-center">Bienvenido a <br></h3>
+                    <h3 class="text-center">Sistema de control ganadero</h3>
+                    <hr>
+                    <h5 class="text-center">Seleccione una opción para comenzar a trabajar.</h5>
+                </div>
+                <div class="col-6">
+                    <div class="well-intro">
+                        <table>
+                            <tr>
+                                <td><img src="img/Vaca.png" width="45" height="45"></td>
+                                <td style="color:lightgray;">---------</td>
+                                <td><a href="livestock-main.html"><h4>Manejo de ganado</h4></a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="well-intro">
+                        <table>
+                            <tr>
+                                <td><img src="img/Alimento.png" width="45" height="45"></td>
+                                <td style="color:lightgray;">---------</td>
+                                <td><a href="inventory-main.html"><h4>Manejo de Inventarios</h4></a></td>
+                            </tr>
+                        </table>
+                    </div>                    
+                    <div class="well-intro">
+                        <table>
+                            <tr>
+                                <td><img src="img/Doctor.png" width="45" height="45"></td>
+                                <td style="color:lightgray;">---------</td>
+                                <td><a href="health-main.html"><h4>Control de salud</h4></a></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="well-intro">
+                        <table>
+                            <tr>
+                                <td><img src="img/Secciones.png" width="45" height="45"></td>
+                                <td style="color:lightgray;">---------</td>
+                                <td><a href="section-main.html"><h4>Secciones y transferencias</h4></a></td>
+                            </tr>
+                        </table>
+                    </div>                    
+                    <div class="well-intro">
+                        <table>
+                            <tr>
+                                <td><img src="img/Catalogos.png" width="45" height="45"></td>
+                                <td style="color:lightgray;">---------</td>
+                                <td><a href="catalog-main.html"><h4>Manejo de catálogos</h4></a></td>
+                            </tr>
+                        </table>
+                    </div>                    
+                    <div class="well-intro">
+                        <table>
+                            <tr>
+                                <td><img src="img/FuncionesAdministrativas.png" width="45" height="45"></td>
+                                <td style="color:lightgray;">---------</td>
+                                <td><a href="administration-main.html"><h4>Funciones administrativas</h4></a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            window.$ = window.jQuery = require('jquery');
+            require('bootstrap');
+            var remote = require('electron').remote;    
+            const main = remote.require('./main.js') 
+
+            $(document).ready(function(){
+                var usr = remote.getGlobal('sharedObj').user;
+                $("#userNameTgt").append(""+usr.name);
+
+                $("#getOut").click(function(e){
+                    let w = remote.getCurrentWindow()
+                    w.close()
+                })
+
+                $("#normatividad").click(function(){
+                    main.openWindow('http://3.17.14.30/?password-protected=logout')
+                })
+            })
+        </script>
+    </body> 
+</html>

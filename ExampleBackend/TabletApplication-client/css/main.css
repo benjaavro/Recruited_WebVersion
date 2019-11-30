@@ -1,0 +1,147 @@
+/*
+    File that contains all the custom csss styles used in the demo
+*/
+
+:root{
+    --main-bg-color: #49423f;
+    --login-bg-color: #eeeeee;
+}
+
+/**** Elements ****/
+canvas{
+    border: 1px solid black;
+    width: 100%;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+body {
+    height: auto;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+td{
+    font-size: 11px!important;
+}
+
+textarea{
+    width: 100%!important;
+}
+/**** Classes *****/
+.login-form{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 25px;
+    background-color: var(--login-bg-color);
+    padding: 5%;
+}
+
+.btn-red{
+    background-color: red!important;
+    color: white;
+    font-weight: 700;
+}
+
+.bg-login{
+    background: linear-gradient(to top left,rgb(61, 143, 38), rgb(33,86,58));
+    background-size: cover;
+}
+
+.img-brand{
+    height: 50%;
+    width: auto;
+    padding: 0;
+}
+
+.horizontal-pad{
+    margin-left:   2%!important;
+    margin-right:  2%!important;
+}
+
+.white-text{
+    color: white!important;
+}
+
+.cow-card{
+    background-color: white;
+    margin: 5px!important;
+    border-radius: 25px;
+    padding: 15px;
+}
+
+.img-card{
+    height: 200px;
+    width: auto;
+    padding: 0;
+}
+
+.img-stat{
+    height: 240px;
+    width: auto;
+    padding: 0;
+}
+
+.livestock-display{
+    background-color: white;
+    padding: 20px;
+}
+
+.green-card{
+    background-color: green;
+    color: white;
+    font-weight: 600;
+}
+
+.green-panel{
+    background-color: rgb(33,86,58);
+    color: white;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.btn-back{
+    color: white!important;
+}
+
+.alert-log{
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+
+    background-color: red;
+}
+.succ-log{
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+
+    background-color: green;
+}
+
+/****Media Queries*****/
+/*At least must be 768 px to enter this category*/
+@media screen and (min-width: 768px) {
+    .login-form{
+        margin-left: 30%;
+        margin-right:30%;
+        margin-top: 2.5%;
+        margin-bottom: 1%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .img-brand{
+        max-height: 80%;
+        width: auto;
+        padding: 0;
+        margin: 5px;
+    }
+}
+
+/***Overrides***/

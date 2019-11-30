@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+    </head>
+    <body class="bg-app">
+        <!-- #Standard buttons-->
+        <h3 class="text-center">Transferencia entre centros de costos</h3>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="text-center">
+                    <a class="btn btn-primary text" href="inventory-main.html">Atrás</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <a class="btn btn-secondary text" href="inventory-exchange.html">Limpiar</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="text-center">
+                    <button class="btn btn-primary" id="saveBtn">Guardar</button>
+                </div>
+            </div>
+        </div>
+        <!-- #Standard buttons-->
+        
+        <!-- #Transaction header -->
+        <div class="container-90">
+            <h4>Datos generales</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ranch">Rancho emisor</label>
+                        <select class="form-control" id="ranch" onchange="createCostCenterSelector($(this).val(),'costCenterCode')"></select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="ranchRec">Rancho receptor</label>
+                        <select class="form-control" id="ranchRec" onchange="createCostCenterSelector($(this).val(),'optionalCostCenter')"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="costCenterCode">Centro de costos emisor</label>
+                        <select class="form-control" id="costCenterCode"></select>
+                        <span id="costCenterCodeFeedback"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="optionalCostCenter">Centro de costos receptor</label>
+                        <select class="form-control" id="optionalCostCenter"></select>
+                        <span id="optionalCostCenterFeedback"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="transactionType">Tipo de transacción</label>
+                        <select class="form-control" id="transactionType">
+                            <option disabled selected>Seleccione un tipo de transacción</option>
+                            <option value="2">Transferencia de salida</option>
+                            <option value="3">Recepción</option>
+                        </select>
+                        <span id="transactionTypeFeedback"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <label>Total de elementos</label>
+                        <input type="text" id="itemTotal" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Numero de salida</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary disabled" type="button" id="getTransact">Buscar</button>
+                        </div>
+                        <input type="text" id="exitNumber" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="entranceNumber">Numero de entrada</label>
+                        <input type="text" id="entranceNumber" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-primary" id="captureItemsToTransfer">Capturar artículos a transferir</button>
+                </div>
+            </div>
+        </div>
+        <!-- #Transaction Header-->
+
+        <!-- #Transaction detail -->
+        <div class="container-90 d-none" id="transferenceDetailBody">
+            <h4 class="text-center">Detalle de transferencias</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre del producto</th>
+                                <th>Código de barras</th>
+                                <th>N.o de lote</th>
+                                <th>Cantidad en transacción</th>
+                                <th>Existencia actual</th>
+                                <th>Existencia después del movimiento</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detailReception">
+                            <tr id="tr1">
+                                <td><input type="text" id="productName1" class="form-control"></td>
+                                <td><input type="text" id="itemCode1" class="form-control"></td>
+                                <td><input type="text" id="lotNumber1" class="form-control"></td>
+                                <td><input type="text" id="unitsInTransaction1" class="form-control"></td>
+                                <td><input type="text" id="currentExistance1" class="form-control" disabled></td>
+                                <td><input type="text" id="transactionResult1" class="form-control listen-enter"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- #Transaction detail -->
+
+        <script>
+            window.$ = window.jQuery = require('jquery')
+            require('bootstrap')
+            require('./js/vendor/jquery.auto-complete.min.js')
+
+            const ItemCardexController = require('./js/controller/ItemCardexController.js')
+            
+            const TableRows = require('./js/util/TableRows.js')
+            const inventoryExchanger = require('./js/viewcontrol/InventoryExchangeViewControl.js')
+
+            const RanchAndSectionController = require('./js/controller/AdministrativeUnitController.js')
+            const VendorController    = require('./js/controller/VendorController.js')
+
+            var data = {};
+            var tags = [];
+            var costs = {};
+
+            const tableRows = new TableRows({
+                cellNumber: 6,
+                idSet: ['productName','itemCode','lotNumber','unitsInTransaction','currentExistance','transactionResult'],
+                appendTo: 'detailReception'
+            })
+
+            var nrs;
+
+            function createRanchSelector(){
+                const ranchController = new RanchAndSectionController();
+
+                ranchController.getRanches().then(
+                    success=>{
+                        console.log(success);
+                        
+                        $("#ranch").append("<option selected disabled>Seleccione un rancho</option>");
+                        $("#ranchRec").append("<option selected disabled>Seleccione un rancho</option>");
+                        success.forEach(element => {
+                            $("#ranch").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                            $("#ranchRec").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                        });
+                    }
+                )
+            }
+
+            function createCostCenterSelector(ranchId,sid) {
+                $("#"+sid).html("");
+                const ranchController = new RanchAndSectionController();
+                ranchController.getCostCenters(ranchId).then(
+                    success=>{
+                        console.log(success);
+
+                        $("#"+sid).append("<option selected disabled>Seleccione una sección</option>");
+                        success.forEach(element => {
+                            $("#"+sid).append(
+                                '<option value="'+element.costCenterId+'">'+element.costCenterName+"</option>"
+                            )
+                        });
+                    },err=>{
+                        alert("Error al cargar secciones");
+                        console.log(err);
+                    }
+                )
+            }
+
+            function createAutosugest(elementId,dataSource,pos) {
+                $("#unitsInTransaction"+pos).addClass('tab-listener');
+
+                $(elementId).autoComplete({
+                    minChars: 2,
+                    source: function (term, suggest) {
+                        term = term.toLowerCase();
+                        var matches = [];
+
+                        for(let i = 0; i < dataSource.length; i++){
+                            if(~dataSource[i].toLowerCase().indexOf(term)) 
+                                matches.push(dataSource[i]);
+                        }   
+                        suggest(matches);
+                    },onSelect: function (e,term,item) {
+                        $("#itemCode"+pos).val(data[term].itemCode);
+                        $("#unitsInTransaction"+pos).val(data[term].accruedAverageAmount);
+                        $("#currentExistance"+pos).val(data[term].accruedAverageAmount);
+
+                        $("#currentExistance"+pos).attr('disabled',true);
+                    }
+                });
+            }
+
+            function appendTableRow(id) {
+                if(!this.cur)
+                    this.cur = 2;
+
+                tableRows.appendRow(this.cur);
+                createAutosugest(id+this.cur,tags,this.cur);
+                this.cur++;
+                nrs = this.cur;
+            }
+
+            function seedInventory(){
+                //Get costCenterCode
+                if(!$("#costCenterCode").val()){
+                    alert("Antes de capturar los productos, seleccione un centro de costos");
+                    return;
+                }
+
+                const cardexController = new ItemCardexController();
+                
+                cardexController.getCurrentExistancePerCostCenter($("#costCenterCode").val()).then(
+                    success=>{                        
+                        if(success.length > 0){
+                            success.forEach(element => {
+                                data[element.itemName] = element;
+                                tags.push(element.itemName);
+                                createAutosugest("#productName1",tags,1);
+                            });
+                            console.log(data);
+                            $("#transferenceDetailBody").removeClass('d-none');
+                        }
+                    },err=>{
+                        console.log(err);
+                        alert("Hubo un error, favor de reportar");
+                    }
+                );
+            }
+
+            $(document).ready(function () {
+                createRanchSelector();
+
+                $("#captureItemsToTransfer").click(()=> seedInventory()); 
+
+                $("#saveBtn").click(function () {
+                    var items = nrs;
+
+                    if(!items)
+                        items = 2;
+                    
+                    inventoryExchanger.performExchange(tableRows,items,['productName','itemCode','lotNumber','unitsInTransaction','currentExistance'],data);
+                    
+                    $("#saveBtn").attr("disabled", true); 
+                })
+
+                $(document).on('keypress','.listen-enter',function (e) {
+                    if (e.key == 'Enter') {
+                        appendTableRow("#productName");
+                    }
+                }) 
+            })
+        </script>
+    </body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/jquery.auto-complete.css">
+        <link rel="stylesheet" href="css/styles.css">
+
+        <title>Sistema de control ganadero</title>
+    </head>
+    <body class="bg-app container-fluid">
+        <h3 class="text-center">Alimentación</h3>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <a class="btn btn-primary text" href="section-main.html">Atrás</a>
+            </div>
+        </div>
+        <div class="container-80">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>¿En qué rancho estás?</label>
+                    <select id="ranch" class="form-control" onchange="createSectionSelector($(this).val());createCostCenterSelector($(this).val())"></select>
+                </div>
+                <div class="col-md-3">
+                    <label>¿En qué sección estás?</label>
+                    <select id="section" class="form-control"></select>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>¿Quien eres?</label>
+                        <select id="whoYouAre" class="form-control">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <br>
+                    <button class="btn btn-primary" id="searchInv">Buscar</button>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="feedback"></div>
+                    <table id="prodtbl" class="d-none">
+                        <thead class="thead-dark">
+                            <th>Código de barras</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>¿Cuanto va a dejar?</th>
+                            <th></th>
+                        </thead>
+                        <tbody id="prodtblbdy">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            window.$ = window.jQuery = require('jquery')
+            require('bootstrap')
+
+            
+            const dates = require('./js/util/DateAndNumber.js')
+            const RanchAndSectionController = require('./js/controller/AdministrativeUnitController.js')
+            const CardexController = require('./js/controller/ItemCardexController.js')
+            const LiveStockFeeding = require('./js/viewcontrol/LivestockFeedingViewControl.js')
+            const usrInv = {};
+
+            function getInventoryForPerson(){
+                const cardexController = new CardexController();
+                
+                var usr = $("#whoYouAre").val();
+                
+                $("#feedback").html("");
+
+                cardexController.getLatestCardexEntriesPerCostCenter(usr,dates.getDate()).then(
+                    success=>{
+                        console.log(success);
+                        
+                        if(success.length > 0){
+                            $("#prodtbl").removeClass("d-none").addClass('table table-striped table-bordered');
+                            
+                            success.forEach((element,index)=>{
+                                usrInv['fetch_'+index] = element;
+                                $("#prodtblbdy").append(
+                                    "<tr id='tr"+index+"'>"
+                                        +"<td>"+element.itemCode+"</td>"
+                                        +"<td>"+element.itemName+"</td>"
+                                        +"<td id='amtfn_"+index+"'>"+element.accruedAverageAmount+"</td>"
+                                        +"<td><input type='number' value="+element.accruedAverageAmount+" id='amt_"+index+"' min=1 max='"+element.accruedAverageAmount+"'></td>"
+                                        +"<td><button class='btn btn-primary saverow' id='fetch_"+index+"'>Guardar</button></td>"
+                                    +"</tr>"
+                                );                                
+                            })
+                        }else{
+                            $("#feedback").append("<span class='alert alert-warning'>Usted no tiene artículos en su inventario</span>");
+                        }
+                    },err=>{
+                        console.log(err);
+                        $("#feedback").append("<span class='alert alert-danger'>Ocurrió un error, favor de reportarlo.</span>");
+                    }
+                )
+            }
+            
+            function createRanchSelector(){
+                const ranchController = new RanchAndSectionController();
+
+                ranchController.getRanches().then(
+                    success=>{
+                        console.log(success);
+                        
+                        $("#ranch").append("<option selected disabled>Seleccione un rancho</option>");
+                        success.forEach(element => {
+                            $("#ranch").append(
+                                '<option value="'+element.ranchId+'">'+element.ranchName+"</option>"
+                            )
+                        });
+                    }
+                )
+            }
+
+            function createSectionSelector(ranchId) {
+                $("#section").html("");
+                const ranchController = new RanchAndSectionController();
+                ranchController.getSections(ranchId).then(
+                    success=>{
+                        console.log(success);
+
+                        $("#section").append("<option selected disabled>Seleccione una sección</option>");
+                        success.forEach(element => {
+                            $("#section").append(
+                                '<option value="'+element.sectionId+'">'+element.sectionName+"</option>"
+                            )
+                        });
+                    },err=>{
+                        alert("Error al cargar secciones");
+                        console.log(err);
+                    }
+                )
+            }
+
+            function createCostCenterSelector(ranchId){
+                $("#whoYouAre").html("");
+                const ranchController = new RanchAndSectionController();
+                
+                ranchController.getCostCentersForRanch(ranchId).then(
+                    success=>{
+                        console.log(success);
+
+                        $("#whoYouAre").append("<option selected disabled>Seleccione una sección</option>");
+                        success.forEach(element => {
+                            $("#whoYouAre").append(
+                                '<option value="'+element.costCenterId+'">'+element.costCenterName+"</option>"
+                            )
+                        });
+                    },err=>{
+                        alert("Error al cargar centros de costos");
+                        console.log(err);
+                    }
+                )
+            }
+
+            $(document).ready(function(){
+                createRanchSelector();
+
+                $("#searchInv").click(function(){
+                    getInventoryForPerson();
+                });
+
+                $(document).on('click','.saverow',function(e){
+                    LiveStockFeeding.applyItemAtAnimal(usrInv[$(this).attr('id')],$(this).attr('id'),$("#section").val(),)
+                })
+            })
+        </script>
+    </body>
+</html>
