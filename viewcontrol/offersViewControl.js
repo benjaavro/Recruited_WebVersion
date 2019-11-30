@@ -1,10 +1,4 @@
-var profileViewControl = function (user) {
 
-    const data = {};
-    
-    data.User = user;
-
-}
 
 var openProfile = function (user) {
     var queryString = "?id=" + user;

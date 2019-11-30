@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--- ROUTES SCRIPT --->
+    <script>
+        var queryString = decodeURIComponent(window.location.search);
+        queryString = queryString.substring(4);
+        console.log(queryString);
+
+        $(document).ready(function() {
+            $("#home-button").click(function() {
+                openHome(queryString);
+            })
+        })
+
+        $(document).ready(function() {
+            $("#profile-button").click(function() {
+                openProfile(queryString);
+            })
+        })
+
+        $(document).ready(function() {
+            $("#posts-button").click(function() {
+                openPosts(queryString);
+            })
+        })
+
+        $(document).ready(function() {
+            $("#offers-button").click(function() {
+                openOffers(queryString);
+            })
+        })
+
+        $(document).ready(function() {
+            $("#settings-button").click(function() {
+                openSettings(queryString);
+            })
+        })
+    </script>
+</body>
+</html>
