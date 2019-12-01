@@ -38,19 +38,19 @@ var openHome = function (user, role) {
     window.location.href = "./index.html" + queryString + roleString;
 }
 
-var openPosts = function (user) {
+var openPosts = function (user, role) {
     var queryString = "?id=" + user;
     var roleString = "&role=" + role;
     window.location.href = "./posts.html" + queryString + roleString;
 }
 
-var openOffers = function (user) {
+var openOffers = function (user, role) {
     var queryString = "?id=" + user;
     var roleString = "&role=" + role;
     window.location.href = "./offers.html" + queryString + roleString;
 }
 
-var openSettings = function (user) {
+var openSettings = function (user, role) {
     var queryString = "?id=" + user;
     var roleString = "&role=" + role;
     window.location.href = "./settings.html" + queryString + roleString;
