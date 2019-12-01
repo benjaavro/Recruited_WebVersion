@@ -154,35 +154,38 @@
 
     <!--- ROUTES SCRIPT --->
     <script>
-        var queryString = decodeURIComponent(window.location.search);
-        console.log("URI: ");
+        var urlString= window.location.href;
+        var parseObj= new URL(urlString);
+        var parseObj2 = new URL(urlString);
 
-        console.log(queryString);
-        queryString = queryString.substring(4);
-        console.log(queryString);
+        console.log(urlString);
+        var paramId = parseObj.searchParams.get("id");
+        console.log(paramId);
+
+        var paramRole = parseObj2.searchParams.get("role");
+        console.log(paramRole);
+
+        getProfileData(paramId, paramRole);
 
         $(document).ready(function() {
-            getProfileData(queryString);
-
             $("#home-button").click(function() {
-                openHome(queryString);
-                //console.log("Click home-button");
+                openHome(paramId, paramRole);
             });
 
             $("#profile-button").click(function() {
-                openProfile(queryString);
+                openProfile(paramId, paramRole);
             });
 
             $("#posts-button").click(function() {
-                openPosts(queryString);
+                openPosts(paramId, paramRole);
             });
 
             $("#offers-button").click(function() {
-                openOffers(queryString);
+                openOffers(paramId, paramRole);
             });
 
             $("#settings-button").click(function() {
-                openSettings(queryString);
+                openSettings(paramId, paramRole);
             });
         });
     </script>

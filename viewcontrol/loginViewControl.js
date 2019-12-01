@@ -13,7 +13,7 @@ var loginViewControl = function (user, password, role) {
                 var aux = fullfill[0].idAthlete;
                 var aux2 = 1;
                 var queryString = "?id=" + aux;
-                var roleString = "?role=" + aux2;
+                var roleString = "&role=" + aux2;
                 window.location.href = "./index.html" + queryString + roleString;
             } else {
                 $("#modal-text").text("Incorrect! Verify usename and password.");
