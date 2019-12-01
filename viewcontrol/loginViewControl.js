@@ -4,16 +4,17 @@ var loginViewControl = function (user, password, role) {
     
     data.User = user;
     data.Password = password;
+    data.Role = role;
 
-    console.log("role:");
-    console.log(role);
     if (role == 1) {
         new LoginController().loginAthlete(data).then(fullfill => {
             if(fullfill.length > 0) {
                 console.log(fullfill[0].idAthlete);
                 var aux = fullfill[0].idAthlete;
+                var aux2 = 1;
                 var queryString = "?id=" + aux;
-                window.location.href = "./index.html" + queryString;
+                var roleString = "?role=" + aux2;
+                window.location.href = "./index.html" + queryString + roleString;
             } else {
                 $("#modal-text").text("Incorrect! Verify usename and password.");
                 $("#myModal").modal();

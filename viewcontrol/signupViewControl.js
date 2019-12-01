@@ -1,4 +1,4 @@
-var signupViewControl    = function (role, name, email, phone, location, institution, age, sex, password) {
+var signupViewControl    = function (role, name, email, phone, location, institution, age, sex, password, sport) {
     const data = {};
 
     data.Role = role;
@@ -10,15 +10,15 @@ var signupViewControl    = function (role, name, email, phone, location, institu
     data.Age = age;
     data.Sex = sex;
     data.Password = password;
+    data.Sport = sport;
 
-    console.log("entra");
+    //console.log("entra");
     if (role == 1) {
         new SignupController().signupAthlete(data).then(fullfill => {
             if(fullfill > 0) {
                 window.location.replace('login.html');
             } else {
-                console.log("fullfill: ");
-                console.log(fullfill);
+                console.log("fullfill: " + fullfill);
                 console.log(fullfill.length);
 
                 $("#modal-text").text("Fill correctly all text fields A");

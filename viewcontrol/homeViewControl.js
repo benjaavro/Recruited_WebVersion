@@ -1,5 +1,6 @@
-var openProfile = function (user) {
+var openProfile = function (user, role) {
     var queryString = "?id=" + user;
+    var roleString = "?role=" + role;
     window.location.href = "./profile.html" + queryString;
 
     console.log(queryString);

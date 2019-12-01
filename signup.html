@@ -32,8 +32,7 @@
                            <div class="form-group">
                                 <label for="role">Role</label>
                                 <select class="custom-select my-1 mr-sm-2 bg-dark role" id="role">
-                                    <option selected>Student-Athlete / Coach</option>
-                                    <option value="1">Student-Athlete</option>
+                                    <option selected value="1">Student-Athlete</option>
                                     <option value="2">Coach</option>
                                 </select>
                                 <small class="form-text text-muted">Select an option from dropdown menu.</small>
@@ -65,6 +64,11 @@
                                 <label for="team">Institution / Team</label>
                                 <input type="text" class="form-control bg-dark" id="team">
                                 <small class="form-text text-muted">Current team (ex. Mater Dei Monarchs)</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="team">Sport</label>
+                                <input type="text" class="form-control bg-dark" id="sport">
+                                <small class="form-text text-muted">Which sport do you play?</small>
                             </div>
                             <div class="row">
                                 <div class="col-6">
@@ -132,7 +136,7 @@
         //LoginController = require('./viewcontrol/loginViewControl.js');
         $(document).ready(function() {
             $("#signup-button").click(function() {
-                signupViewControl($("#role").val(), $("#name").val(), $("#email").val(), $("#phone").val(), $("#location").val(), $("#team").val(), $("#age").val(), $("#sex").val(), $("#password").val());
+                signupViewControl($("#role").val(), $("#name").val(), $("#email").val(), $("#phone").val(), $("#location").val(), $("#team").val(), $("#age").val(), $("#sex").val(), $("#password").val(), $("#sport").val());
             })
         })
     </script>
