@@ -2,12 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70d55293-b0d6-4158-abe3-c84d4b9109ae" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/postController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/profileController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/registerController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/model/postModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/model/profileModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/model/registerModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/postRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/profileRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/registerRoute.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/controller/loginController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/controller/loginController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/model/loginModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/loginModel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/routes/loginRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/routes/loginRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/util/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/util/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,20 +29,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/util/db.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="32" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/AdministrativeUnitRoutes.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -53,6 +48,33 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/AnimalRoute.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controller/AnimalController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="27" column="27" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/model/AnimalModel.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="241">
+              <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller/ApplicationUserController.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="405">
@@ -64,7 +86,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/ApplicationUserModel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="611">
+            <state relative-caret-position="663">
               <caret line="45" column="37" lean-forward="true" selection-start-line="45" selection-end-line="45" selection-end-column="37" />
             </state>
           </provider>
@@ -84,11 +106,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-106">
-              <caret line="5" column="47" lean-forward="true" selection-start-line="5" selection-end-line="5" selection-end-column="47" />
+            <state relative-caret-position="164">
+              <caret line="23" column="40" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -210,16 +232,15 @@
       <workItem from="1552630297846" duration="87000" />
       <workItem from="1552669481408" duration="1057000" />
       <workItem from="1574877714433" duration="3123000" />
-      <workItem from="1574959868217" duration="1423000" />
+      <workItem from="1574959868217" duration="3655000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25832000" />
+    <option name="totallyTimeSpent" value="28064000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18927065" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -277,13 +298,6 @@
         <state relative-caret-position="-156" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controller/AnimalController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="41" column="19" selection-start-line="41" selection-start-column="19" selection-end-line="41" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/ItemCardexRoutes.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -300,24 +314,10 @@
     <entry file="file://$PROJECT_DIR$/routes/CategoryRoutes.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/AnimalRoute.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/PurchaseOrderRoutes.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="6" column="55" selection-start-line="6" selection-start-column="38" selection-end-line="6" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/AnimalModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="55" column="43" lean-forward="true" selection-start-line="53" selection-start-column="8" selection-end-line="55" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -451,13 +451,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/AppUserRoutes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="5" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controller/ApplicationUserController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
@@ -475,17 +468,45 @@
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="23" column="40" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/AppUserRoutes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="5" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/model/ApplicationUserModel.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
+        <state relative-caret-position="663">
           <caret line="45" column="37" lean-forward="true" selection-start-line="45" selection-end-line="45" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.js">
+    <entry file="file://$PROJECT_DIR$/routes/AnimalRoute.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-106">
-          <caret line="5" column="47" lean-forward="true" selection-start-line="5" selection-end-line="5" selection-end-column="47" />
+        <state relative-caret-position="135">
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/AnimalController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="27" column="27" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/AnimalModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
         </state>
       </provider>
     </entry>

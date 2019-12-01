@@ -15,3 +15,18 @@ exports.athleteLogin = function(req,res){
     })
 
 }
+
+exports.coachLogin = function(req,res){
+    const loginModel = new LoginModel(db);
+    const user = req.body;
+
+    console.log(user);
+
+    loginModel.coachLogin(user).then(usrCr=>{
+        res.json(usrCr);
+    }).catch(err=>{
+        console.log(err);
+        res.status(500).send(err);
+    })
+
+}
