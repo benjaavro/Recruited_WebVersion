@@ -5,8 +5,8 @@ const connectionPool = mysql.createPool({
     connectionLimit: 1000,
     host: '127.0.0.1',
     port: 3306,
-    user: 'Alex',
-    password: 'Mortadelo97',
+    user: 'benjaavro',
+    password: 'IpadB33nji',
     database: 'RecruitedApp'
 });
 
