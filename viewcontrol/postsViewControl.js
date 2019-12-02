@@ -4,7 +4,7 @@ var getAllPosts = function() {
             console.log(fullfill);
             console.log(fullfill.length);
 
-            for (i = 0; i < fullfill.length; i++) {
+            for (i = fullfill.length - 1; i >= 0; i--) {
                 $("#col-center").append("<div class=\"card\">\n" +
                     "                       <div class=\"card-body\">\n" +
                     "                           <h5 class=\"card-title\" id=\"post-owner\">" + fullfill[i].Athlete_idAthlete + "</h5>\n" +
@@ -22,6 +22,12 @@ var getAllPosts = function() {
         //$("#modal-text").text("SERVER ERROR :/");
         //$("#myModal").modal();
     });
+}
+
+var openProfile = function (user, role) {
+    var queryString = "?id=" + user;
+    var roleString = "&role=" + role;
+    window.location.href = "./profile.html" + queryString + roleString;
 }
 
 var postsViewControl = function (text, user, date, role) {
