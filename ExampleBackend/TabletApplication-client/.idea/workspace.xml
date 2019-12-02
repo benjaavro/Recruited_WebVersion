@@ -2,20 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ba15bc0-9dfb-4ea6-be47-bb8b96de70af" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/postController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/profileController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/registerController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/model/postModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/model/profileModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/model/registerModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/postRoute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/profileRoute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/registerRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/statsController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/model/statsModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/statsRoute.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/controller/loginController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/controller/loginController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/controller/postController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/controller/postController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/model/loginModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/loginModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/routes/loginRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/routes/loginRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/model/postModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/postModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/routes/postRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/routes/postRoute.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -206,6 +200,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24050634" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
