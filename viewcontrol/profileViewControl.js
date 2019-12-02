@@ -26,6 +26,10 @@ var getProfileStats = function (user, role) {
     });
 }
 
+var openOwnerProfile = function (user, role, owner) {
+    console.log("Getting owner profile");
+}
+
 var getProfileData = function (user, role) {
 
     const data = {};
