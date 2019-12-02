@@ -7,6 +7,7 @@ const profileRoute = require('./routes/profileRoute')
 const loginRoute = require('./routes/loginRoute')
 const registerRoute = require('./routes/registerRoute')
 const postRoute = require('./routes/postRoute')
+const statsRoute = require('./routes/statsRoute')
 const app = express();
 
 //Parse urlencoded
@@ -22,7 +23,7 @@ app.use((req, res, next)=>{
     res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
     next();
 });
-
+statsRoute(app);
 postRoute(app);
 profileRoute(app);
 loginRoute(app);
