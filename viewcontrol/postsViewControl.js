@@ -24,6 +24,12 @@ var getAllPosts = function() {
     });
 }
 
+var openProfile = function (user, role) {
+    var queryString = "?id=" + user;
+    var roleString = "&role=" + role;
+    window.location.href = "./profile.html" + queryString + roleString;
+}
+
 var postsViewControl = function (text, user, date, role) {
     const data = {};
 

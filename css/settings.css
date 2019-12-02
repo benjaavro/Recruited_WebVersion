@@ -1,0 +1,39 @@
+#infoForm, #statsForm, #createStatForm {
+    display: none;
+}
+
+#post-title {
+    color: #343a40;
+    opacity: 0.7;
+    font-style: italic;
+    font-size: 2.5em;
+    padding-left: 30px;
+    font-weight: 700;
+    margin-top: 90px; 
+}
+
+.settings-button {
+    width: 150px;
+    margin: 10px;
+}
+
+
+.form-title {
+    color: #343a40;
+    opacity: 0.7;
+    font-style: italic;
+    font-size: 1.5em;
+}
+
+.text-muted {
+    margin-bottom: 15px;
+}
+
+#description {
+    height: 180px;
+}
+
+#updateInfo-button {
+    margin-bottom: 100px;
+    margin-left: 200px;
+}
