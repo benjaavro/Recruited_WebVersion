@@ -44,8 +44,11 @@ exports.insertList = function(req,res){
     listModel.insertList(user).then(usrCr=>{
         listModel.getMail(user).then(usrCr=>{
             console.log("Mail:");
-            console.log(usrCr);
-            //mailController(usrCr);
+            console.log(JSON.stringify(usrCr));
+            var mailAux = JSON.stringify(usrCr);
+            var mail = JSON.parse(mailAux);
+            console.log(mail[0].mail);
+            mailController(mail[0].mail);
             res.json(usrCr);
         }).catch(err=>{
             console.log(err);

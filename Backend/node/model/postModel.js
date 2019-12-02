@@ -22,7 +22,7 @@ class postModel {
     }
 
     getPost() {
-        const sql = `SELECT Athlete.name,PostAthlete.idPostAthlete,PostAthlete.date,PostAthlete.description,PostAthlete.Athlete_idAthlete FROM PostAthlete
+        const sql = `SELECT Athlete.idAthlete,Athlete.name,PostAthlete.idPostAthlete,PostAthlete.date,PostAthlete.description,PostAthlete.Athlete_idAthlete FROM PostAthlete
 INNER JOIN Athlete ON PostAthlete.Athlete_idAthlete = Athlete.idAthlete;`
         const params = [];
         return new Promise((resolve, reject) => {

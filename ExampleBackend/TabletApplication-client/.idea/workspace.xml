@@ -2,21 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4ba15bc0-9dfb-4ea6-be47-bb8b96de70af" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/listController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/mailController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/model/listModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/listRoute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/mailRoute.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/controller/registerController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/controller/registerController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/controller/listController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/controller/listController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/model/listModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/listModel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/model/postModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/postModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/model/profileModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/profileModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/model/registerModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/registerModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/model/statsModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/statsModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Backend/node/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -43,15 +32,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
               <caret line="48" column="69" selection-start-line="48" selection-start-column="64" selection-end-line="48" selection-end-column="69" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/viewcontrol/UserLoginViewControl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="34" lean-forward="true" selection-start-line="20" selection-start-column="11" selection-end-line="20" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -92,11 +72,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/feed-animals.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-789">
-              <caret line="89" column="37" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="37" />
+            <state relative-caret-position="516">
+              <caret line="176" column="43" lean-forward="true" selection-start-line="176" selection-start-column="43" selection-end-line="176" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/js/viewcontrol/LivestockFeedingViewControl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="643">
+              <caret line="106" column="4" selection-start-line="106" selection-start-column="4" selection-end-line="106" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -227,16 +216,15 @@
       <workItem from="1552630298899" duration="78000" />
       <workItem from="1552669731112" duration="837000" />
       <workItem from="1553481442518" duration="288000" />
-      <workItem from="1574963006582" duration="6439000" />
+      <workItem from="1574963006582" duration="6787000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26824000" />
+    <option name="totallyTimeSpent" value="27172000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24050634" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -450,8 +438,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/feed-animals.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-789">
-          <caret line="89" column="37" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="37" />
+        <state relative-caret-position="516">
+          <caret line="176" column="43" lean-forward="true" selection-start-line="176" selection-start-column="43" selection-end-line="176" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/viewcontrol/LivestockFeedingViewControl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="643">
+          <caret line="106" column="4" selection-start-line="106" selection-start-column="4" selection-end-line="106" selection-end-column="4" />
         </state>
       </provider>
     </entry>

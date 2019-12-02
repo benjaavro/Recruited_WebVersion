@@ -20,7 +20,7 @@ class listModel {
     }
 
     listCoach(usr) {
-        const sql = `select  c.idCoach,c.name from coach AS c  JOIN interestlist AS il  JOIN athletelist AS al JOIN athlete AS a WHERE interestList_idList=idList AND coach_idCoach=idCoach AND athlete_idAthlete=idAthlete AND a.name = ? ORDER BY idCoach ASC;`
+        const sql = `select  c.idCoach,c.name from coach AS c  JOIN interestlist AS il  JOIN athletelist AS al JOIN athlete AS a WHERE interestList_idList=idList AND coach_idCoach=idCoach AND athlete_idAthlete=idAthlete AND a.idAthlete = ? ORDER BY idCoach ASC;`
         const params = [usr.Id];
         return new Promise((resolve, reject) => {
             this.db.query(sql, params, function (err, res) {
@@ -37,7 +37,7 @@ class listModel {
 
     insertList(usr) {
         const sql = `INSERT INTO AthleteList VALUES(?,?)`
-        const params = [usr.IdA,user.IdC];
+        const params = [usr.IdA,usr.IdC];
         return new Promise((resolve, reject) => {
             this.db.query(sql, params, function (err, res) {
                 if (err) {
