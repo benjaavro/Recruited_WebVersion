@@ -12,6 +12,19 @@ class PostsController {
         });
     }
 
+     getPostC() {
+        console.log("just before call...");
+        return new Promise((resolve, reject) => { axios.post('http://10.25.241.57:3000/post/getC').then(function(success) {
+            console.log("just after call...");
+            console.log(success);
+            resolve(success.data);
+        }).catch(function(err){
+            console.log(err);
+            reject(err);
+        })
+        });
+    }
+
     postAthlete(data) {
         return new Promise((resolve, reject) => { axios.post('http://10.25.241.57:3000/post/insert',data).then(function(success) {
 
