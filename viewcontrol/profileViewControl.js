@@ -88,9 +88,7 @@ var getProfileInfo = function (user, role) {
 
 var saveProfileInfo = function (user, role) {
     const data = {};
-
     data.Id = user;
-    //data.Role = role;
 
     var auxAge = $("#age").val();
     var auxPhone = $("#phone").val();
@@ -152,12 +150,9 @@ var saveProfileInfo = function (user, role) {
             data.Password = Password;
         }
 
-
         console.log(data.Description);
 
         new ProfileController().updateDataAthlete(data).then(fullfill => {
-            console.log("fullfill: ");
-            console.log(fullfill);
             if(fullfill == 1) {
                 console.log("Good jab");
             } else {
