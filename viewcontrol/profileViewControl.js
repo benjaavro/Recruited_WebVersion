@@ -1,3 +1,31 @@
+var getProfileStats = function (user, role) {
+    const data = {};
+
+    data.Id = user;
+    data.Role = role;
+
+    new ProfileController().getAthleteStats(data).then(fullfill => {
+        if(fullfill.length > 0) {
+            console.log("fullfill length: ");
+            console.log(fullfill.length);
+
+            for (i = 0; i < fullfill.length; i++) {
+                $("#table-body").append("<tr>\n" +
+                                            "<th>" + fullfill[i].idRecord + "</th>\n" +
+                                            "<td>" + fullfill[i].name + "</td>\n" +
+                                            "<td>" + fullfill[i].content + "</td>\n" +
+                                            "</tr>");
+            }
+        } else {
+            $("#modal-text").text("Incorrect! Verify username and password.");
+            $("#myModal").modal();
+        }
+    }).catch(err => {
+        $("#modal-text").text("SERVER ERROR :/");
+        $("#myModal").modal();
+    });
+}
+
 var getProfileData = function (user, role) {
 
     const data = {};
@@ -141,18 +169,6 @@ var saveProfileInfo = function (user, role) {
             $("#myModal").modal();
         });
     });
-
-    /*new ProfileController().updateDataAthlete(data).then(fullfill => {
-        if(fullfill.length > 0) {
-            console.log("Good jab");
-        } else {
-            $("#modal-text").text("Incorrect! Verify username and password.");
-            $("#myModal").modal();
-        }
-    }).catch(err => {
-        $("#modal-text").text("SERVER ERROR :/ WTF");
-        $("#myModal").modal();
-    });*/
 }
 
 var openProfile = function (user, role) {
