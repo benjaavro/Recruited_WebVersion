@@ -26,8 +26,12 @@ var loginViewControl = function (user, password, role) {
     } else {
         new LoginController().loginCoach(data).then(fullfill => {
             if(fullfill.length > 0) {
-                console.log(fullfill);
-                //window.location.replace('index.html');
+                console.log(fullfill[0].idCoach);
+                var aux = fullfill[0].idCoach;
+                var aux2 = 2;
+                var queryString = "?id=" + aux;
+                var roleString = "&role=" + aux2;
+                window.location.href = "./index.html" + queryString + roleString;
             } else {
                 $("#modal-text").text("Incorrect! Verify usename and password.");
                 $("#myModal").modal();

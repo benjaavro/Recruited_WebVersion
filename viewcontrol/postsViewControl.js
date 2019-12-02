@@ -86,6 +86,25 @@ var postsViewControl = function (text, user, date, role) {
             $("#myModal").modal();
         })
     }
+    else{new PostsController().postCoach(data).then(fullfill => {
+            if (fullfill.length > 0) {
+                console.log(fullfill[0]);
+
+                $("#modal-text").text("Write something bruh...");
+                $("#myModal").modal();
+            } else {
+                var queryString = "?id=" + user;
+                var roleString = "&role=" + role;
+                window.location.href = "./index.html" + queryString + roleString;
+            }
+        }).catch(err => {
+            $("#modal-text").text("SERVER ERROR :/");
+            $("#myModal").modal();
+        })
+
+
+
+    }
 }
 
 var openProfile = function (user, role) {
