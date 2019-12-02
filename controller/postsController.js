@@ -1,7 +1,7 @@
 class PostsController {
     getPost() {
         console.log("just before call...");
-        return new Promise((resolve, reject) => { axios.post('http://192.168.1.76:3000/post/get').then(function(success) {
+        return new Promise((resolve, reject) => { axios.post('http://10.25.241.57:3000/post/get').then(function(success) {
             console.log("just after call...");
             console.log(success);
             resolve(success.data);
@@ -13,7 +13,7 @@ class PostsController {
     }
 
     postAthlete(data) {
-        return new Promise((resolve, reject) => { axios.post('http://192.168.1.76:3000/post/insert',data).then(function(success) {
+        return new Promise((resolve, reject) => { axios.post('http://10.25.241.57:3000/post/insert',data).then(function(success) {
 
             console.log("entered backend");
             console.log(success);

@@ -1,5 +1,5 @@
 'use strict';
-const mysql             = require('mysql')
+const mysql = require('mysql')
 
 const connectionPool = mysql.createPool({
     connectionLimit: 1000,

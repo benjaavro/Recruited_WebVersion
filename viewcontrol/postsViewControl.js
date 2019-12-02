@@ -7,7 +7,7 @@ var getAllPosts = function() {
             for (i = fullfill.length - 1; i >= 0; i--) {
                 $("#col-center").append("<div class=\"card\">\n" +
                     "                       <div class=\"card-body\">\n" +
-                    "                           <h5 class=\"card-title\" id=\"post-owner\">" + fullfill[i].Athlete_idAthlete + "</h5>\n" +
+                    "                           <h5 class=\"card-title\" id=\"post-owner\">" + fullfill[i].name + "</h5>\n" +
                     "                           <h6 class=\"card-subtitle mb-2 text-muted\" id=\"post-date\">" + fullfill[i].date + "</h6>\n" +
                     "                           <p class=\"card-text\" id=\"post-content\">" + fullfill[i].description + "</p>\n" +
                     "                       </div>\n" +
