@@ -21,4 +21,28 @@ class ProfileController {
         })
         });
     }
+
+
+    getDataCoach(data) {
+        return new Promise((resolve, reject) => { axios.post('http://10.25.241.57:3000/profile/Coach',data).then(function(success) {
+            console.log(success);
+            resolve(success.data);
+        }).catch(function(err){
+            console.log(err);
+            reject(err);
+        })
+        });
+    }
+
+    updateDataCoach(data) {
+        console.log("updating to backend");
+        return new Promise((resolve, reject) => { axios.post('http://10.25.241.57:3000/profile/CoachEdit',data).then(function(success) {
+            console.log(success);
+            resolve(success.data);
+        }).catch(function(err){
+            console.log(err);
+            reject(err);
+        })
+        });
+    }
 }
