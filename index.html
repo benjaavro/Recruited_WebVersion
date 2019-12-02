@@ -70,7 +70,7 @@
             </nav>
             
             <!--- POSTS --->
-            <main class="col-md-9 col-xl-8 py-md-3 pl-md5 bd-content" role="main"  id="col-center">
+            <main class="col-md-9 col-xl-8 py-md-3 pl-md5 bd-content" role="main"  id="col-center" style="margin-top: 100px;">
                 
             </main>
             
@@ -88,7 +88,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./controller/homeController.js" language="javascript"></script>
+    <script src="./controller/postsController.js" language="javascript"></script>
     <script src="./viewcontrol/homeViewControl.js" language="javascript"></script>
+    <script src="./viewcontrol/postsViewControl.js" language="javascript"></script>
 
     <!--- ROUTES SCRIPT --->
     <script>
@@ -103,7 +105,10 @@
         var paramRole = parseObj2.searchParams.get("role");
         console.log(paramRole);
 
+
         $(document).ready(function() {
+            getAllPosts();
+
             $("#home-button").click(function() {
                 openHome(paramId, paramRole);
             });
