@@ -9,7 +9,7 @@ var getAllPosts = function(id, role) {
                 for (i = fullfill.length - 1; i >= 0; i--) {
                     $("#col-center").append("<div class=\"card\">\n" +
                         "                       <div class=\"card-body\">\n" +
-                        "                           <h5 class=\"card-title\" id=\"post-owner\">" + fullfill[i].name + "</h5><\n" +
+                        "                           <h5 class=\"card-title\" id=\"post-owner\">" + fullfill[i].name + "</h5>\n" +
                         "                           <h6 class=\"card-subtitle mb-2 text-muted\" id=\"post-date\">" + fullfill[i].date.substring(0,10) + "</h6>\n" +
                         "                           <p class=\"card-text\" id=\"post-content\">" + fullfill[i].description + "</p>\n" +
                         "                       </div>\n" +
@@ -36,11 +36,15 @@ var getAllPosts = function(id, role) {
                 for (i = fullfill.length - 1; i >= 0; i--) {
                     $("#col-center").append("<div class=\"card\">\n" +
                         "                       <div class=\"card-body\">\n" +
-                        "                           <h5 class=\"card-title\" id=\"post-owner\">" + fullfill[i].name + "</h5>\n" +
+                        "                           <div class=\"row\" style=\"margin-bottom: 5px;\"><button class=\"bg-light add-button\" value=\"" + fullfill[i].idPostAthlete + "\">+</button>" +
+                        "                           <h5 class=\"card-title\" id=\"post-owner\">" + fullfill[i].name + "</h5></div>\n" +
                         "                           <h6 class=\"card-subtitle mb-2 text-muted\" id=\"post-date\">" + fullfill[i].date.substring(0,10) + "</h6>\n" +
                         "                           <p class=\"card-text\" id=\"post-content\">" + fullfill[i].description + "</p>\n" +
                         "                       </div>\n" +
                         "                   </div>");
+
+                    console.log($(".add-button").val());
+                    //console.log(fullfill[i].idPostAthlete);
                 }
 
             } else {

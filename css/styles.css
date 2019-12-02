@@ -88,6 +88,13 @@
     font-weight: 700;
 }
 
+.add-button {
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
 /* Sweep To Right */
 .hvr-sweep-to-right {
   display: inline-block;

@@ -70,7 +70,7 @@
             </nav>
             
             <!--- POSTS --->
-            <main class="col-md-9 col-xl-8 py-md-3 pl-md5 bd-content" role="main"  id="col-center" style="margin-top: 80px;">
+            <main class="col-md-9 col-xl-8 py-md-3 pl-md5 bd-content posts-div" role="main"  id="col-center" style="margin-top: 80px;">
                 <p id="post-title">FEED</p>
             </main>
             
@@ -132,23 +132,12 @@
             $("#settings-button").click(function() {
                 openSettings(paramId, paramRole);
             });
-        });
-    </script>
 
-    <script id="script-owner">
-        var urlString= window.location.href;
-        var parseObj= new URL(urlString);
-        var parseObj2 = new URL(urlString);
-
-        console.log(urlString);
-        var paramId = parseObj.searchParams.get("id");
-        console.log(paramId);
-
-        var paramRole = parseObj2.searchParams.get("role");
-        console.log(paramRole);
-
-        $("#col-center").on('click', '#owner-link', function(){
-            console.log('button clicked for owner');
+            $(".posts-div").on('click', '.add-button', function(){
+                //console.log("clickedon('val'");
+                var aux = $(".add-button").val();
+                console.log(aux);
+            });
         });
     </script>
   </body>
