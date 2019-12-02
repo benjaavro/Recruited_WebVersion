@@ -185,6 +185,7 @@
         var parseObj= new URL(urlString);
         var parseObj2 = new URL(urlString);
 
+
         console.log(urlString);
         var paramId = parseObj.searchParams.get("id");
         console.log(paramId);
@@ -194,7 +195,21 @@
 
         getProfileData(paramId, paramRole);
 
-        getProfileStats(paramId, paramRole);
+        if(paramRole==1){
+            
+
+            getProfileStats(paramId, paramRole);
+
+        }
+        if(paramRole==2){
+            $("#stats-info").css('display', 'none');
+
+            
+
+        }
+
+
+        
 
         $(document).ready(function() {
             $("#home-button").click(function() {

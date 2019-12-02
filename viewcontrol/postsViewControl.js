@@ -28,7 +28,7 @@ var getAllPosts = function(id, role) {
             $("#myModal").modal();
         });
     } else {
-        new PostsController().getPost().then(fullfill => {
+        new PostsController().getPostC().then(fullfill => {
             if(fullfill.length > 0) {
                 console.log(fullfill);
                 console.log(fullfill.length);
