@@ -1,44 +1,184 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+
+    <!--- STYLES --->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/profile.css">
+
+    <!--- FONTS --->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
+
+    <title>RECRUITED - OFFERS</title>
 </head>
 <body>
-    <!--- ROUTES SCRIPT --->
-    <script>
-        var urlString= window.location.href;
-        var parseObj= new URL(urlString);
-        var parseObj2 = new URL(urlString);
+<!--- NAVBAR --->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-        console.log(urlString);
-        var paramId = parseObj.searchParams.get("id");
-        console.log(paramId);
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <!--- LOGO NAVBAR --->
+            <li class="nav-item active" style="margin-left: 30px;">
+                <a class="nav-link" href="#">
+                    <img src="img/RECRUITED_LOGO-05.png" id="logo-navbar">
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 search-navbar">
+            <input class="form-control btn-outline-light mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <a href="login.html">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit" style="margin-left: 10px;">Log Out</button>
+        </a>
+    </div>
+</nav>
 
-        var paramRole = parseObj2.searchParams.get("role");
-        console.log(paramRole);
+<!--- BODY --->
+<div class="container-fluid">
+    <div class="row flex-xl-nowrap">
 
-        $(document).ready(function() {
-            $("#home-button").click(function() {
-                openHome(paramId, paramRole);
-            });
+        <!--- MENU --->
+        <nav class="col-md-3 col-xl-2 bd-sidebar fixed-top" id="col-left">
+            <div class="bd-toc-item">
+                <p class="menu-title">MENU</p>
+            </div>
+            <div class="bd-toc-item hvr-sweep-to-right">
+                <a href="#" class="menu-item" id="home-button">Home</a>
+            </div>
+            <div class="bd-toc-item hvr-sweep-to-right">
+                <a href="#" class="menu-item" id="profile-button">Profile</a>
+            </div>
+            <div class="bd-toc-item hvr-sweep-to-right">
+                <a href="#" class="menu-item" id="posts-button">Posts</a>
+            </div>
+            <div class="bd-toc-item hvr-sweep-to-right">
+                <a href="#" class="menu-item" id="offers-button">Offers</a>
+            </div>
+            <div class="bd-toc-item hvr-sweep-to-right">
+                <a href="#" class="menu-item" id="settings-button">Settings</a>
+            </div>
+        </nav>
 
-            $("#profile-button").click(function() {
-                openProfile(paramId, paramRole);
-            });
+        <!--- PROFILE CONTENT --->
+        <div class="col-md-9 col-xl-8 container-fluid" role="main"  id="col-center">
+            <div class="row">
 
-            $("#posts-button").click(function() {
-                openPosts(paramId, paramRole);
-            });
+                <!--- MY LIST --->
+                <div class="col-12 container" id="profile-info" style="margin-top: 80px;">
+                        <p id="stats-title">MY LIST</p>
 
-            $("#offers-button").click(function() {
-                openOffers(paramId, paramRole);
-            });
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-body">
 
-            $("#settings-button").click(function() {
-                openSettings(paramId, paramRole);
-            });
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+
+        <!--- FOLLOWS --->
+        <nav class="d-none d-xl-block col-xl-2 bd-toc fixed-top" aria-label="Secondary navigation"  id="col-right">
+
+        </nav>
+
+        <div class="modal" tabindex="-1" role="dialog" id="myModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">ERROR</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="modal-text"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="./controller/profileController.js" language="javascript"></script>
+<script src="./controller/settingsController.js" language="javascript"></script>
+<script src="./controller/offersController.js" language="javascript"></script>
+<script src="./viewcontrol/offersViewControl.js" language="javascript"></script>
+<script src="./viewcontrol/settingsViewControl.js" language="javascript"></script>
+<script src="./viewcontrol/profileViewControl.js" language="javascript"></script>
+
+<!--- ROUTES SCRIPT --->
+<script>
+    var urlString= window.location.href;
+    var parseObj= new URL(urlString);
+    var parseObj2 = new URL(urlString);
+
+
+    console.log(urlString);
+    var paramId = parseObj.searchParams.get("id");
+    console.log(paramId);
+
+    var paramRole = parseObj2.searchParams.get("role");
+    console.log(paramRole);
+
+    getProfileData(paramId, paramRole);
+
+    if(paramRole==1){
+        getListAsAthlete(paramId);
+    }
+    if(paramRole==2){
+        //$("#stats-info").css('display', 'none');
+        getListAsCoach(paramId);
+    }
+
+    $(document).ready(function() {
+        $("#home-button").click(function() {
+            openHome(paramId, paramRole);
         });
-    </script>
+
+        $("#profile-button").click(function() {
+            openProfile(paramId, paramRole);
+        });
+
+        $("#posts-button").click(function() {
+            openPosts(paramId, paramRole);
+        });
+
+        $("#offers-button").click(function() {
+            openOffers(paramId, paramRole);
+        });
+
+        $("#settings-button").click(function() {
+            openSettings(paramId, paramRole);
+        });
+    });
+</script>
 </body>
 </html>
