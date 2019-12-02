@@ -136,12 +136,12 @@
                                     <p class="form-title">Register a new personal record</p>
 
                                     <label for="statName">Stat Name</label>
-                                    <input type="number" class="form-control" id="statName" placeholder="">
+                                    <input type="text" class="form-control" id="statName" placeholder="">
                                     <small class="form-text text-muted">Write your new stat name. (ex. 40ys-dash, L-Drill, Bench Press (225lbs))</small>
 
                                     <label for="statValue">Stat Value</label>
-                                    <input type="number" class="form-control" id="statValue" placeholder="">
-                                    <small class="form-text text-muted">Write your new stat value with measure unit. (ex. 4.21secs, 15reps)</small>
+                                    <input type="text" class="form-control" id="statValue" placeholder="">
+                                    <small class="form-text text-muted">Write your new stat value with measure unit. (ex. 4.21sec, 15reps)</small>
                                 </div>
                                 <button class="btn btn-outline-dark bg-light" id="createStats-button" type="button">Register</button>
                             </form>
@@ -196,6 +196,8 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="./controller/postsController.js" language="javascript"></script>
 <script src="./controller/profileController.js" language="javascript"></script>
+<script src="./controller/settingsController.js" language="javascript"></script>
+<script src="./viewcontrol/settingsViewControl.js" language="javascript"></script>
 <script src="./viewcontrol/postsViewControl.js" language="javascript"></script>
 <script src="./viewcontrol/profileViewControl.js" language="javascript"></script>
 
@@ -236,14 +238,19 @@
             $("#createStatForm").css("display", "none");
 
             saveProfileInfo(paramId, paramRole);
+            //openProfile(paramId, paramRole);
         });
 
         $("#createStats-button").click(function() {
             $("#infoForm").css("display", "none");
-            $("#statsForm").css("display", "block");
-            $("#createStatForm").css("display", "none");
+            $("#statsForm").css("display", "none");
+            $("#createStatForm").css("display", "block");
 
-            saveProfileInfo(paramId, paramRole);
+            var auxStatName = $("#statName").val();
+            var auxStatValue = $("#statValue").val();
+
+            createStat(paramId, paramRole, auxStatName, auxStatValue);
+            //openProfile(paramId, paramRole);
         });
         
         $("#stats-button").click(function(e) {

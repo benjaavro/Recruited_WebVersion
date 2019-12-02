@@ -77,6 +77,8 @@
                     <div class="col-12" id="portrait">
                         <h2 id="name-title"></h2>
                     </div>
+
+                    <!--- MY INFO--->
                     <div class="col-12 container" id="profile-info">
                         <p id="info-title">MY INFO</p>
                         
@@ -118,6 +120,24 @@
                             <p class="content" id="institution"></p>
                         </div>
                     </div>
+
+                    <!--- MY STATS --->
+                    <div class="col-12 container" id="stats-info">
+                        <p id="stats-title">MY STATS</p>
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Value</th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-body">
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             
@@ -155,6 +175,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./controller/profileController.js" language="javascript"></script>
+    <script src="./controller/settingsController.js" language="javascript"></script>
+    <script src="./viewcontrol/settingsViewControl.js" language="javascript"></script>
     <script src="./viewcontrol/profileViewControl.js" language="javascript"></script>
 
     <!--- ROUTES SCRIPT --->
@@ -171,6 +193,8 @@
         console.log(paramRole);
 
         getProfileData(paramId, paramRole);
+
+        getProfileStats(paramId, paramRole);
 
         $(document).ready(function() {
             $("#home-button").click(function() {

@@ -107,10 +107,10 @@
 
 
         $(document).ready(function() {
-            getAllPosts();
+            getAllPosts(paramId, paramRole);
 
-            $("#post-owner").click(function () {
-                openOwnerProfile(paramId, paramRole, $("#post-owner").val());
+            $(".owner-link").click(function () {
+                openOwnerProfile(paramId, paramRole, fullfill[i].id);
             })
 
             $("#home-button").click(function() {
@@ -132,6 +132,23 @@
             $("#settings-button").click(function() {
                 openSettings(paramId, paramRole);
             });
+        });
+    </script>
+
+    <script id="script-owner">
+        var urlString= window.location.href;
+        var parseObj= new URL(urlString);
+        var parseObj2 = new URL(urlString);
+
+        console.log(urlString);
+        var paramId = parseObj.searchParams.get("id");
+        console.log(paramId);
+
+        var paramRole = parseObj2.searchParams.get("role");
+        console.log(paramRole);
+
+        $("#col-center").on('click', '#owner-link', function(){
+            console.log('button clicked for owner');
         });
     </script>
   </body>

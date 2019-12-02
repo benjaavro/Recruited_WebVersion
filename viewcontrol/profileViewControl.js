@@ -1,3 +1,35 @@
+var getProfileStats = function (user, role) {
+    const data = {};
+
+    data.Id = user;
+    data.Role = role;
+
+    new ProfileController().getAthleteStats(data).then(fullfill => {
+        if(fullfill.length > 0) {
+            console.log("fullfill length: ");
+            console.log(fullfill.length);
+
+            for (i = 0; i < fullfill.length; i++) {
+                $("#table-body").append("<tr>\n" +
+                                            "<th>" + fullfill[i].idRecord + "</th>\n" +
+                                            "<td>" + fullfill[i].name + "</td>\n" +
+                                            "<td>" + fullfill[i].content + "</td>\n" +
+                                            "</tr>");
+            }
+        } else {
+            $("#modal-text").text("Incorrect! Verify username and password.");
+            $("#myModal").modal();
+        }
+    }).catch(err => {
+        $("#modal-text").text("SERVER ERROR :/");
+        $("#myModal").modal();
+    });
+}
+
+var openOwnerProfile = function (user, role, owner) {
+    console.log("Getting owner profile");
+}
+
 var getProfileData = function (user, role) {
 
     const data = {};
@@ -126,9 +158,7 @@ var getProfileInfo = function (user, role) {
 
 var saveProfileInfo = function (user, role) {
     const data = {};
-
     data.Id = user;
-    //data.Role = role;
 
     var auxAge = $("#age").val();
     var auxPhone = $("#phone").val();
@@ -191,12 +221,9 @@ var saveProfileInfo = function (user, role) {
             data.Password = Password;
         }
 
-
         console.log(data.Description);
 
         new ProfileController().updateDataAthlete(data).then(fullfill => {
-            console.log("fullfill: ");
-            console.log(fullfill);
             if(fullfill == 1) {
                 console.log("Good jab");
             } else {
@@ -283,20 +310,6 @@ var saveProfileInfo = function (user, role) {
         });
     });
     }
-
-    
-
-    /*new ProfileController().updateDataAthlete(data).then(fullfill => {
-        if(fullfill.length > 0) {
-            console.log("Good jab");
-        } else {
-            $("#modal-text").text("Incorrect! Verify username and password.");
-            $("#myModal").modal();
-        }
-    }).catch(err => {
-        $("#modal-text").text("SERVER ERROR :/ WTF");
-        $("#myModal").modal();
-    });*/
 }
 
 var openProfile = function (user, role) {
