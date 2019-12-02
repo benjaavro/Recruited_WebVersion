@@ -2,8 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70d55293-b0d6-4158-abe3-c84d4b9109ae" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/listController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/controller/mailController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/model/listModel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/listRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Backend/node/routes/mailRoute.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/controller/registerController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/controller/registerController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/model/postModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/postModel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../Backend/node/model/profileModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/profileModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/model/registerModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/registerModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/model/statsModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/model/statsModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Backend/node/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../Backend/node/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -55,8 +68,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model/AnimalModel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+            <state relative-caret-position="361">
+              <caret line="44" column="18" lean-forward="true" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -219,12 +232,12 @@
       <workItem from="1552630297846" duration="87000" />
       <workItem from="1552669481408" duration="1057000" />
       <workItem from="1574877714433" duration="3123000" />
-      <workItem from="1574959868217" duration="3655000" />
+      <workItem from="1574959868217" duration="4074000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28064000" />
+    <option name="totallyTimeSpent" value="28483000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -493,8 +506,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/model/AnimalModel.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+        <state relative-caret-position="361">
+          <caret line="44" column="18" lean-forward="true" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
         </state>
       </provider>
     </entry>

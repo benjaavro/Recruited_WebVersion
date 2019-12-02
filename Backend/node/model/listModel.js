@@ -1,30 +1,11 @@
-class postModel {
+class listModel {
     constructor(db) {
         this.db = db;
     }
 
-    post(usr) {
-        console.log("User");
-        console.log(usr);
-        const sql = `INSERT INTO PostAthlete(date,description,Athlete_idAthlete) VALUES(?,?,?)`
-        const params = [usr.Date,usr.Description,usr.Id];
-        return new Promise((resolve, reject) => {
-            this.db.query(sql, params, function (err, res) {
-                if (err) {
-                    reject(err)
-                } else {
-                    console.log("Respuesta");
-                    console.log(res);
-                    resolve(1)
-                }
-            })
-        })
-    }
-
-    getPost() {
-        const sql = `SELECT Athlete.name,PostAthlete.idPostAthlete,PostAthlete.date,PostAthlete.description,PostAthlete.Athlete_idAthlete FROM PostAthlete
-INNER JOIN Athlete ON PostAthlete.Athlete_idAthlete = Athlete.idAthlete;`
-        const params = [];
+    list(usr) {
+        const sql = `select  c.idCoach,c.name, al.Athlete_idAthlete, a.name from coach AS c  JOIN interestlist AS il  JOIN athletelist AS al JOIN athlete AS a WHERE interestList_idList=idList AND coach_idCoach=idCoach AND athlete_idAthlete=idAthlete AND c.idCoach = ? ORDER BY idCoach ASC;`
+        const params = [usr.Id];
         return new Promise((resolve, reject) => {
             this.db.query(sql, params, function (err, res) {
                 if (err) {
@@ -38,11 +19,25 @@ INNER JOIN Athlete ON PostAthlete.Athlete_idAthlete = Athlete.idAthlete;`
         })
     }
 
-    postC(usr) {
-        console.log("User");
-        console.log(usr);
-        const sql = `INSERT INTO PostCoach(date,description,Coach_idCoach) VALUES(?,?,?)`
-        const params = [usr.Date,usr.Description,usr.Id];
+    listCoach(usr) {
+        const sql = `select  c.idCoach,c.name from coach AS c  JOIN interestlist AS il  JOIN athletelist AS al JOIN athlete AS a WHERE interestList_idList=idList AND coach_idCoach=idCoach AND athlete_idAthlete=idAthlete AND a.name = ? ORDER BY idCoach ASC;`
+        const params = [usr.Id];
+        return new Promise((resolve, reject) => {
+            this.db.query(sql, params, function (err, res) {
+                if (err) {
+                    reject(err)
+                } else {
+                    console.log("Respuesta");
+                    console.log(res);
+                    resolve(res)
+                }
+            })
+        })
+    }
+
+    insertList(usr) {
+        const sql = `INSERT INTO AthleteList VALUES(?,?)`
+        const params = [usr.IdA,user.IdC];
         return new Promise((resolve, reject) => {
             this.db.query(sql, params, function (err, res) {
                 if (err) {
@@ -56,10 +51,9 @@ INNER JOIN Athlete ON PostAthlete.Athlete_idAthlete = Athlete.idAthlete;`
         })
     }
 
-    getPostC() {
-        const sql = `SELECT Coach.name,PostCoach.idPostCoach,PostCoach.date,PostCoach.description,PostCoach.Coach_idCoach FROM PostCoach
-INNER JOIN Coach ON PostCoach.Coach_idCoach = Coach.idCoach;`
-        const params = [];
+    getMail(usr) {
+        const sql = `SELECT mail FROM Athlete WHERE idAthlete = ?`
+        const params = [usr.IdA];
         return new Promise((resolve, reject) => {
             this.db.query(sql, params, function (err, res) {
                 if (err) {
@@ -72,6 +66,7 @@ INNER JOIN Coach ON PostCoach.Coach_idCoach = Coach.idCoach;`
             })
         })
     }
+
+
 }
-
-module.exports = postModel;
+module.exports = listModel

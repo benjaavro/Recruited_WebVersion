@@ -24,7 +24,12 @@ exports.coachRegister = function(req,res){
     console.log(user);
 
     registerModel.coachRegister(user).then(usrCr=>{
-        res.json(usrCr);
+        registerModel.coachList(user).then(usrCr=>{
+            res.json(usrCr);
+        }).catch(err=>{
+            console.log(err);
+            res.status(500).send(err);
+        })
     }).catch(err=>{
         console.log(err);
         res.status(500).send(err);

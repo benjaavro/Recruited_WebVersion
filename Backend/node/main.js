@@ -8,6 +8,8 @@ const loginRoute = require('./routes/loginRoute')
 const registerRoute = require('./routes/registerRoute')
 const postRoute = require('./routes/postRoute')
 const statsRoute = require('./routes/statsRoute')
+const listRoute = require('./routes/listRoute')
+const mailRoute = require('./routes/mailRoute')
 const app = express();
 
 //Parse urlencoded
@@ -23,6 +25,8 @@ app.use((req, res, next)=>{
     res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
     next();
 });
+mailRoute(app)
+listRoute(app);
 statsRoute(app);
 postRoute(app);
 profileRoute(app);

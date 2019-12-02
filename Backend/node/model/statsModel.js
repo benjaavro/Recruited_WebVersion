@@ -5,7 +5,9 @@ class statsModel {
 
 
     insert(usr) {
-        const sql = `INSERT INTO Stats(name,content,Athlete_idAthlete) VALUES (?,?,?,?)`
+        console.log("Insert stats: ");
+        console.log(usr);
+        const sql = `INSERT INTO Stats(name,content,Athlete_idAthlete) VALUES (?,?,?)`
         const params = [usr.Name,usr.Content,usr.Id];
         return new Promise((resolve, reject) => {
             this.db.query(sql, params, function (err, res) {
