@@ -1,8 +1,32 @@
+
+
 var getListAsAthlete = function (user) {
     const data = {};
 
     data.Id = user;
-    data.Role = role;
+
+    new OffersController().getDataAthlete(data).then(fullfill => {
+        if(fullfill.length > 0) {
+            for (i = 0; i < fullfill.length; i++) {
+                $("#table-body").append("<tr>\n" +
+                    "<th>" + fullfill[i].idCoach + "</th>\n" +
+                    "<td>" + fullfill[i].name + "</td>\n" +
+                    "</tr>");
+            }
+        } else {
+            //$("#modal-text").text("Incorrect! Verify username and password.");
+            //$("#myModal").modal();
+        }
+    }).catch(err => {
+        $("#modal-text").text("SERVER ERROR :/");
+        $("#myModal").modal();
+    });
+}
+
+var getListAsCoach = function (user) {
+    const data = {};
+
+    data.Id = user;
 
     new OffersController().getDataCoach(data).then(fullfill => {
         if(fullfill.length > 0) {
@@ -11,9 +35,8 @@ var getListAsAthlete = function (user) {
 
             for (i = 0; i < fullfill.length; i++) {
                 $("#table-body").append("<tr>\n" +
-                    "<th>" + fullfill[i].idRecord + "</th>\n" +
+                    "<th>" + fullfill[i].Athlete_idAthlete + "</th>\n" +
                     "<td>" + fullfill[i].name + "</td>\n" +
-                    "<td>" + fullfill[i].content + "</td>\n" +
                     "</tr>");
             }
         } else {
@@ -24,10 +47,6 @@ var getListAsAthlete = function (user) {
         $("#modal-text").text("SERVER ERROR :/");
         $("#myModal").modal();
     });
-}
-
-var getListAsCoach = function (user) {
-
 }
 
 var openProfile = function (user, role) {

@@ -89,6 +89,8 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./controller/homeController.js" language="javascript"></script>
     <script src="./controller/postsController.js" language="javascript"></script>
+    <script src="./viewcontrol/offersViewControl.js" language="javascript"></script>
+    <script src="./controller/offersController.js" language="javascript"></script>
     <script src="./viewcontrol/homeViewControl.js" language="javascript"></script>
     <script src="./viewcontrol/postsViewControl.js" language="javascript"></script>
 
@@ -135,8 +137,10 @@
 
             $(".posts-div").on('click', '.add-button', function(){
                 //console.log("clickedon('val'");
-                var aux = $(".add-button").val();
-                console.log(aux);
+                var id = $(this).attr('id');
+                console.log(id);
+
+                addAthleteToList(id, paramId);
             });
         });
     </script>

@@ -1,3 +1,11 @@
+var addAthleteToList = function(id, idCoach) {
+    const data = {};
+
+    data.IdA = id;
+    data.IdC = idCoach;
+    new OffersController().addToList(data);
+}
+
 var getAllPosts = function(id, role) {
 
     if(role == 1) {
@@ -61,15 +69,12 @@ var getAllPosts = function(id, role) {
                 for (i = fullfill.length - 1; i >= 0; i--) {
                     $("#col-center").append("<div class=\"card\">\n" +
                         "                       <div class=\"card-body\">\n" +
-                        "                           <div class=\"row\" style=\"margin-bottom: 5px;\"><button class=\"bg-light add-button\" value=\"" + fullfill[i].idPostAthlete + "\">+</button>" +
+                        "                           <div class=\"row\" style=\"margin-bottom: 5px;\"><button class=\"bg-light add-button\" id=\"" + fullfill[i].idAthlete + "\" value=\"" + fullfill[i].idPostAthlete + "\">+</button>" +
                         "                           <h5 class=\"card-title\" id=\"post-owner\">" + fullfill[i].name + "</h5></div>\n" +
                         "                           <h6 class=\"card-subtitle mb-2 text-muted\" id=\"post-date\">" + fullfill[i].date.substring(0,10) + "</h6>\n" +
                         "                           <p class=\"card-text\" id=\"post-content\">" + fullfill[i].description + "</p>\n" +
                         "                       </div>\n" +
                         "                   </div>");
-
-                    console.log($(".add-button").val());
-                    //console.log(fullfill[i].idPostAthlete);
                 }
 
                 new PostsController().getPostC().then(fullfill => {
@@ -77,10 +82,10 @@ var getAllPosts = function(id, role) {
                         console.log(fullfill);
                         console.log(fullfill.length);
 
-                        for (i = fullfill.length - 1; i >= 0; i--) {
+                        for (i = fullfill.length - 1; i > 0; i--) {
                             $("#col-center").append("<div class=\"card\">\n" +
                                 "                       <div class=\"card-body\">\n" +
-                                "                           <div class=\"row\" style=\"margin-bottom: 5px;\"><button class=\"bg-light add-button\" value=\"" + fullfill[i].idPostAthlete + "\">+</button>" +
+                                "                           <div class=\"row\" style=\"margin-bottom: 5px;\">" +
                                 "                           <h5 class=\"card-title\" id=\"post-owner\">" + fullfill[i].name + "</h5></div>\n" +
                                 "                           <h6 class=\"card-subtitle mb-2 text-muted\" id=\"post-date\">" + fullfill[i].date.substring(0,10) + "</h6>\n" +
                                 "                           <p class=\"card-text\" id=\"post-content\">" + fullfill[i].description + "</p>\n" +
