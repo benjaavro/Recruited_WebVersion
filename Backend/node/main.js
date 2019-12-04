@@ -10,6 +10,7 @@ const postRoute = require('./routes/postRoute')
 const statsRoute = require('./routes/statsRoute')
 const listRoute = require('./routes/listRoute')
 const mailRoute = require('./routes/mailRoute')
+const mobileRoute = require('./routes/mobileRoute')
 const app = express();
 
 //Parse urlencoded
@@ -25,6 +26,7 @@ app.use((req, res, next)=>{
     res.header("Allow", "GET, POST, OPTIONS, PUT, DELETE");
     next();
 });
+mobileRoute(app);
 mailRoute(app)
 listRoute(app);
 statsRoute(app);
