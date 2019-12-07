@@ -3,8 +3,9 @@ const MobileModel = require('../model/MobileModel')
 
 exports.login = function(req,res){
     const mobileModel = new MobileModel(db);
-    const user = req.body;
-
+    console.log(req);
+    const user = JSON.parse(JSON.stringify(req.body));
+    console.log("USER CONTROLLER:")
     console.log(user);
 
     mobileModel.login(user).then(usrCr=>{

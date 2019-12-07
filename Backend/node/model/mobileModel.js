@@ -4,9 +4,10 @@ class mobileModel {
     }
 
     login(usr) {
-        console.log("user: "+usr.User);
-        const sql = `SELECT mail,password FROM Login WHERE mail = ?`
-        const params = [usr.User];
+        console.log("user: ");
+        console.log(usr)
+        const sql = `SELECT id,password FROM Login WHERE mail = ?`
+        const params = [usr.Mail];
         console.log("params:" +params);
         return new Promise((resolve, reject) => {
             this.db.query(sql, params, function (err, res) {
@@ -24,7 +25,7 @@ class mobileModel {
     insert(usr) {
         console.log("user: "+usr.User);
         const sql = `INSERT INTO Login(mail,password) VALUES(?,?)`
-        const params = [usr.Userusr.Password];
+        const params = [usr.Mail,usr.Password];
         console.log("params:" +params);
         return new Promise((resolve, reject) => {
             this.db.query(sql, params, function (err, res) {
